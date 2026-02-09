@@ -1,0 +1,89 @@
+//
+//  Precio.swift
+//  TestWF
+//
+//  Created by TI on 28/01/26.
+//
+
+import SwiftUI
+
+struct Precio: Codable, Identifiable {
+    let id = UUID()
+    //Tabla principal
+    let solicitud: Int
+    let prodescripcion: String
+    let cliente: Int
+    let nom_cliente: String
+    let contrato: Int
+    let nom_contrato: String
+    let tipoprecioact: Int
+    let tipopreciosol: Int
+    let tipoprecioactdesc: String
+    let tipopreciosoldesc: String
+    let saldo: String
+    let saldovencido: String
+    let ultpagofecha: FechaAPI
+    let ultpago: String
+    let fechacad: FechaAPI
+    let solicitante: String
+    //Detalles de la solicitud
+    let nivel: Int
+    let autoriza: String
+    let fechasol: FechaAPI
+    let sla: Int
+    let fechasla: FechaAPI
+    let diascredito: Int
+    let limcredito: String
+    let diasven: Int
+    let cuenta: String
+    let nom_cuenta: String?
+    let motivo: Int
+    let motivodesc: String
+    let motivodetalle: String
+    let comp: Int
+    let compdesc: String
+    let compdetalle: String
+    let compfecha: FechaAPI
+    let monto: String
+    //Proceso
+    let procesoid: Int
+    enum CodingKeys: String, CodingKey {
+        case solicitud = "SolicitudID"
+        case prodescripcion = "ProcesoDescripcion"
+        case cliente = "ClienteID"
+        case nom_cliente = "NombreCliente"
+        case contrato = "ContratoID"
+        case nom_contrato = "NombreContrato"
+        case tipoprecioact = "TipoPrecioActual"
+        case tipopreciosol = "TipoPrecioSolicitado"
+        case tipoprecioactdesc = "TipoPrecioActualDescripcion"
+        case tipopreciosoldesc = "TipoPrecioSolicitadoDescripcion"
+        case saldo = "SaldoTotal"
+        case saldovencido = "SaldoVencido"
+        case ultpagofecha = "UltimoPagoFecha"
+        case ultpago = "UltimoPagoMonto"
+        case fechacad = "FechaCaducidad"
+        case solicitante = "SolicitanteNombre"
+        //Detalles de la solicitud
+        case nivel = "SecuenciaAutorizacion"
+        case autoriza = "QuienAutoriza"
+        case fechasol = "FechaAlta"
+        case sla = "SLA"
+        case fechasla = "FechaFinSLA"
+        case diascredito = "DiasCredito"
+        case limcredito = "LimiteCredito"
+        case diasven = "DiasVencidos"
+        case cuenta = "CuentaContable"
+        case nom_cuenta = "CuentaContableNombre"
+        case motivo = "MotivoID"
+        case motivodesc = "MotivoDescripcion"
+        case motivodetalle = "MotivoDetalle"
+        case comp = "CompromisoID"
+        case compdesc = "CompromisoDescripcion"
+        case compdetalle = "CompromisoDetalle"
+        case compfecha = "CompromisoFecha"
+        case monto = "CompromisoValor"
+        //Proceso
+        case procesoid = "ProcesoID"
+    }
+}
