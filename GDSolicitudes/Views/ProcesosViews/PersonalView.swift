@@ -82,7 +82,7 @@ struct PersonalView: View {
                                                 let feccad = item.fechacad.date.formatearFecha()
                                                 filaTablaPlantilla(titulo: "Solicitud", valor: "\(solicitudID)")
                                                 Divider()
-                                                //filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
+                                                filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
                                                 Divider()
                                                 filaTablaPlantilla(titulo: "Fecha caducidad", valor: feccad)
                                                 filaTablaPlantilla(titulo: "Solicitante", valor: "\(item.solicitante)")
@@ -187,14 +187,14 @@ struct PersonalView: View {
     //MARK: Otros campos
     func otrosCampos(_ item: Personal) -> String {
         //Detalles en otros campos
-        let fechatempini = item.fechatempini.date.formatearFecha()
-        let fechatempfin = item.fechatempfin.date.formatearFecha()
+        let fechatempini = item.fechatempini?.date.formatearFecha()
+        let fechatempfin = item.fechatempfin?.date.formatearFecha()
         let contcompact = if(item.contcompact == 1) { "SI" } else {"NO"}
         let contcompsol = if(item.contcompsol == 1) { "SI" } else {"NO"}
         let famact = if(item.contcompact == 1) { "SI" } else {"NO"}
         let famsol = if(item.contcompsol == 1) { "SI" } else {"NO"}
         let nombreact = "\(item.nomact) \(item.apepatact) \(item.apematact)"
-        let nombresol = "\(item.nomasol) \(item.apepatsol) \(item.apematsol)"
+        let nombresol = "\(item.nomsol) \(item.apepatsol) \(item.apematsol)"
         let salto = "\n"
         var otroscampos = "Categoría del puesto [\(item.catpers) - \(item.catpersdesc)]" + salto
         if (item.contcompact != item.contcompsol) {
@@ -203,15 +203,15 @@ struct PersonalView: View {
                 otroscampos += "Puesto temporal desde: [\(fechatempini)] Hasta: [\(fechatempfin)]"
             }*/
         }
-        otroscampos *= "Familiares en la empresa actual: [\(famact)] Solicitado: [\(famsol)]" + salto
+        otroscampos += "Familiares en la empresa actual: [\(famact)] Solicitado: [\(famsol)]" + salto
         if (item.soltemp == 1) {
-            otroscampos += "Puesto temporal desde: \(fechatempini) Hasta: \(fechatempfin)"
+            otroscampos += "Puesto temporal desde: \(fechatempini ?? "") Hasta: \(fechatempfin ?? "")"
         } else {
             otroscampos += "Puesto temporal N/A"
         }
         otroscampos += "Nombre Actual: [\(nombreact)] Solicitado: [\(nombresol)]"
         otroscampos += "Puesto Actual: [\(item.puestoact) - \(item.puestodescact)] Solicitado: [\(item.puestosol) - \(item.puestodescsol)]"
-        if (item.)
+        //if (item.)
         /*if (item.puestodescact != item.puestodescsol) {
             otroscampos += "Descripción corta actual: [\(item.puestodescact)] Solicitado: [\(item.puestodescsol)]" + salto
         }

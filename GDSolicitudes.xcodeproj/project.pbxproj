@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		12DDE5C32F3A77F80031B2BF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 12DDE5C22F3A77F80031B2BF /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		12DDE5232F3A743D0031B2BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12DDE5C32F3A77F80031B2BF /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = GDSolicitudes;
 			packageProductDependencies = (
+				12DDE5C22F3A77F80031B2BF /* Lottie */,
 			);
 			productName = GDSolicitudes;
 			productReference = 12DDE5142F3A74390031B2BF /* GDSolicitudes.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 12DDE50B2F3A74390031B2BF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				12DDE5C12F3A77F80031B2BF /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 12DDE5152F3A74390031B2BF /* Products */;
 			projectDirPath = "";
@@ -593,6 +602,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		12DDE5C12F3A77F80031B2BF /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12DDE5C22F3A77F80031B2BF /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12DDE5C12F3A77F80031B2BF /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 12DDE50C2F3A74390031B2BF /* Project object */;
 }
