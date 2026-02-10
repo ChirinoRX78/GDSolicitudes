@@ -252,7 +252,7 @@ struct PersonalView: View {
             otroscampos += "CURP actual: [\(item.curpact)] Solicitado: [\(item.curpsol)]" + salto
         }
         if item.tipocontact != item.tipocontsol {
-            otroscampos += "Tipo de contrato actual: [\(item.tipocontact) - \(item.tipocontdescact)] Solicitado: [\(item.tipocontsol) - \(item.tipocontdescsol)]" + salto
+            otroscampos += "Tipo de contrato actual: [\(item.tipocontact)] Solicitado: [\(item.tipocontsol)]" + salto
         }
         if item.sangrecact != item.sangrecsol {
             otroscampos += "Tipo de sangre actual: [\(item.sangrecact) - \(item.tiposangrecact)] Solicitado: [\(item.sangrecsol) - \(item.tiposangrecsol)]" + salto
@@ -270,19 +270,19 @@ struct PersonalView: View {
             otroscampos += "CP Actual: [\(item.cpsatact)] Solicitado: [\(item.cpsatsol)]" + salto
         }
         if item.paissatact != item.paissatsol {
-            otroscampos += "País Actual: [\(item.paissatact) - \(item.paissatactdesc)] Solicitado: [\(item.paissatsol) - \(item.paissatsoldesc)]" + salto
+            otroscampos += "País Actual: [\(item.paissatact)] Solicitado: [\(item.paissatsol)]" + salto
         }
         if item.edosatidact != item.edosatidsol {
-            otroscampos += "Estado Actual: [\(item.edosatidact) - \(item.edosatidactdesc)] Solicitado: [\(item.edosatidsol) - \(item.edosatidsoldesc)]" + salto
+            otroscampos += "Estado Actual: [\(item.edosatidact)] Solicitado: [\(item.edosatidsol)]" + salto
         }
         if item.munsatact != item.munsatsol {
-            otroscampos += "Municipio Actual: [\(item.munsatact) - \(item.munsatactdesc)] Solicitado: [\(item.munsatsol) - \(item.munsatsoldesc)]" + salto
+            otroscampos += "Municipio Actual: [\(item.munsatact)] Solicitado: [\(item.munsatsol)]" + salto
         }
         if item.locsatact != item.locsatsol {
-            otroscampos += "Localidad Actual: [\(item.locsatact) - \(item.locsatactdesc)] Solicitado: [\(item.locsatsol) - \(item.locsatsoldesc)]" + salto
+            otroscampos += "Localidad Actual: [\(item.locsatact)] Solicitado: [\(item.locsatsol)]" + salto
         }
         if item.colsatact != item.colsatsol {
-            otroscampos += "Colonia Actual: [\(item.colsatact) - \(item.colsatactdesc)] Solicitado: [\(item.colsatsol) - \(item.colsatsoldesc)]" + salto
+            otroscampos += "Colonia Actual: [\(item.colsatact)] Solicitado: [\(item.colsatsol)]" + salto
         }
         if item.telact != item.telsol {
             otroscampos += "Teléfonos actual: [\(item.telact)] Solicitado: [\(item.telsol)]" + salto
@@ -297,7 +297,7 @@ struct PersonalView: View {
             otroscampos += "RFC actual: [\(item.rfcact)] Solicitado: [\(item.rfcsol)]" + salto
         }
         if item.catcomact != item.catcomsol {
-            otroscampos += "Categoría de comisiones actual: [\(item.catcomact) - \(item.catcomdescact)] Solicitado: [\(item.catcomsol) - \(item.catcomdescsol)]" + salto
+            otroscampos += "Categoría de comisiones actual: [\(item.catcomact)] Solicitado: [\(item.catcomsol)]" + salto
         }
         if item.domemgact != item.domemgsol {
             otroscampos += "Domicilio de emergencia actual: [\(item.domemgact)] Solicitado: [\(item.domemgsol)]" + salto
@@ -314,8 +314,8 @@ struct PersonalView: View {
         if item.privhorasalact != item.privhorasalsol {
             otroscampos += "Privilegio hora salida actual: [\(item.privhorasalact)] Solicitado: [\(item.privhorasalsol)]" + salto
         }
-        if item.privasiact != item.privasissol {
-            otroscampos += "Privilegio asistencia actual: [\(item.privasiact)] Solicitado: [\(item.privasissol)]" + salto
+        if item.privasisact != item.privasissol {
+            otroscampos += "Privilegio asistencia actual: [\(item.privasisact)] Solicitado: [\(item.privasissol)]" + salto
         }
         if item.joract != item.jorsol {
             otroscampos += "Jornada actual: [\(item.joract)] Solicitado: [\(item.jorsol)]" + salto
@@ -386,7 +386,7 @@ struct PersonalView: View {
         if procesaInfonavit {
             otroscampos += "Tiene Infonavit actual: [\(tieneInfoAct ? "SI" : "NO")] Solicitado: [\(tieneInfoSol ? "SI" : "NO")]" + salto
             if item.amoract != item.amorsol {
-                otroscampos += "Infonavit - Tipo amortización actual: [\(item.amoract) - \(item.amordescact)] Solicitado: [\(item.amorsol) - \(item.amordescsol)]" + salto
+                otroscampos += "Infonavit - Tipo amortización actual: [\(item.amoract)] Solicitado: [\(item.amorsol)]" + salto
             }
             if item.numcredact != item.numcredsol {
                 otroscampos += "Infonavit - Número de crédito actual: [\(item.numcredact)] Solicitado: [\(item.numcredsol)]" + salto
@@ -684,8 +684,8 @@ struct PersonalView: View {
                 otroscampos += "Número crédito Fonacot actual: [\(item.numfonact)] Solicitado: [\(item.numfonsol)]" + salto
             }
             if item.fechainifonact != nil || item.fechainifonsol != nil {
-                let fechaActual = item.fechainifonact ?? ""
-                let fechaSolicitado = item.fechainifonsol ?? ""
+                let fechaActual = item.fechainifonact?.date.formatearFecha() ?? ""
+                let fechaSolicitado = item.fechainifonsol?.date.formatearFecha() ?? ""
                 otroscampos += "Fecha inicio descuento Fonacot actual: [\(fechaActual)] Solicitado: [\(fechaSolicitado)]" + salto
             }
             if item.impfonact != item.impfonsol {
