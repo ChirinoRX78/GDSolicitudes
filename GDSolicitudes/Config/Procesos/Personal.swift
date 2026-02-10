@@ -39,7 +39,7 @@ struct Personal: Codable, Identifiable {
     let nomfamact: String
     let nomfamsol: String
     let areafamact: Int
-    let arefamsol: Int
+    let areafamsol: Int
     let areafamdescact: String 
     let areafamdescsol: String
     let puestofamact: Int
@@ -443,7 +443,7 @@ struct Personal: Codable, Identifiable {
         case nomfamact = "NombreDelFamiliarActual"
         case nomfamsol = "NombreDelFamiliarSolicitado"
         case areafamact = "AreaDelFamiliarActual"
-        case arefamsol = "AreaDelFamiliarSolicitado"
+        case areafamsol = "AreaDelFamiliarSolicitado"
         case areafamdescact = "AreaDelFamiliarDescripcionActual"
         case areafamdescsol = "AreaDelFamiliarDescripcionSolicitado"
         case puestofamact = "PuestoDelFamiliarActual"
