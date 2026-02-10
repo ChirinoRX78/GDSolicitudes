@@ -406,6 +406,292 @@ struct PersonalView: View {
                 otroscampos += "Fecha inicio descuento Infonavit actual: [\(fechaIniAct)] Solicitado: [\(fechaIniSol)]" + salto
             }
         }
+        if item.turnoact != item.turnosol {
+            otroscampos += "Turno actual: [\(item.turnoact) - \(item.turnodescact)] Solicitado: [\(item.turnosol) - \(item.turnodescsol)]" + salto
+        }
+        if item.cedact != item.cedsol {
+            otroscampos += "Cédula actual: [\(item.cedact)] Solicitado: [\(item.cedsol)]" + salto
+        }
+        if item.recontact != item.recontsol {
+            otroscampos += "Permitir recontratar actual: [\(item.recontact)] Solicitado: [\(item.recontsol)]" + salto
+        }
+        if item.suaact != item.suasol {
+            otroscampos += "Alta SUA actual: [\(item.suaact)] Solicitado: [\(item.suasol)]" + salto
+        }
+        if item.modopagoact != item.modopagosol {
+            otroscampos += "Modo de pago actual: [\(item.modopagoact) - \(item.modopagodescact)] Solicitado: [\(item.modopagosol) - \(item.modopagodescsol)]" + salto
+        }
+        if item.estcredact != item.estcredsol {
+            otroscampos += "Estatus credencial actual: [\(item.estcredact) - \(item.estcreddescact)] Solicitado: [\(item.estcredsol) - \(item.estcreddescsol)]" + salto
+        }
+        if item.grupoact != item.gruposol {
+            otroscampos += "Grupo actual: [\(item.grupoact) - \(item.grupodescact)] Solicitado: [\(item.gruposol) - \(item.grupodescsol)]" + salto
+        }
+        if item.nacact != item.nacsol {
+            otroscampos += "Lugar de nacimiento actual: [\(item.nacact)] Solicitado: [\(item.nacsol)]" + salto
+        }
+        if item.sexoact != item.sexosol {
+            otroscampos += "Sexo actual: [\(item.sexoact) - \(item.sexodescact)] Solicitado: [\(item.sexosol) - \(item.sexodescsol)]" + salto
+        }
+        if item.civact != item.civsol {
+            otroscampos += "Estado civil actual: [\(item.civact) - \(item.civdescact)] Solicitado: [\(item.civsol) - \(item.civdescsol)]" + salto
+        }
+        if item.notaact != item.notasol {
+            otroscampos += "Notas actuales: [\(item.notaact)] Solicitado: [\(item.notasol)]" + salto
+        }
+        if item.licact != item.licsol {
+            otroscampos += "Licencia actual: [\(item.licact)] Solicitado: [\(item.licsol)]" + salto
+        }
+        if item.tipolicact != item.tipolicsol {
+            otroscampos += "Tipo licencia actual: [\(item.tipolicact) - \(item.tipolicdescact)] Solicitado: [\(item.tipolicsol) - \(item.tipolicdescsol)]" + salto
+        }
+        if item.vigact != nil || item.vigsol != nil {
+            let vigAct = item.vigact?.date.formatearFecha() ?? ""
+            let vigSol = item.vigsol?.date.formatearFecha() ?? ""
+            otroscampos += "Vigencia actual: [\(vigAct)] Solicitado: [\(vigSol)]" + salto
+        }
+        if item.umfact != item.umfsol {
+            otroscampos += "UMF actual: [\(item.umfact)] Solicitado: [\(item.umfsol)]" + salto
+        }
+        if item.semjoract != item.semjorsol {
+            otroscampos += "Semana jornada reducida actual: [\(item.semjoract)] Solicitado: [\(item.semjorsol) - \(item.semjordescsol)]" + salto
+        }
+        if item.fechareact != nil || item.fecharesol != nil {
+            let freAct = item.fechareact?.date.formatearFecha() ?? ""
+            let freSol = item.fecharesol?.date.formatearFecha() ?? ""
+            otroscampos += "Fecha reingreso actual: [\(freAct)] Solicitado: [\(freSol)]" + salto
+        }
+        if item.fechaimsact != nil || item.fechaimssol != nil {
+            let imssAct = item.fechaimsact?.date.formatearFecha() ?? ""
+            let imssSol = item.fechaimssol?.date.formatearFecha() ?? ""
+            otroscampos += "Fecha alta IMSS actual: [\(imssAct)] Solicitado: [\(imssSol)]" + salto
+        }
+        if item.regsalminact != item.regsalminsol {
+            otroscampos += "Región salario mínimo actual: [\(item.regsalminact) - \(item.regsalmindescact)] Solicitado: [\(item.regsalminsol) - \(item.regsalmindescsol)]" + salto
+        }
+        if item.folioact != item.foliosol {
+            otroscampos += "Folio credencial actual: [\(item.folioact)] Solicitado: [\(item.foliosol)]" + salto
+        }
+        if item.asegact != item.asegsol {
+            otroscampos += "Asegurado IMSS actual: [\(item.asegact)] Solicitado: [\(item.asegsol)]" + salto
+        }
+        if item.udnact != item.udnsol {
+            otroscampos += "Unidad de negocio actual: [\(item.udnact)] Solicitado: [\(item.udnsol)]" + salto
+        }
+        if item.bancoact != item.bancosol {
+            otroscampos += "Banco actual: [\(item.bancoact) - \(item.bancodescact)] Solicitado: [\(item.bancosol) - \(item.bancodescsol)]" + salto
+        }
+        if item.cheqact != item.cheqsol {
+            otroscampos += "Chequera actual: [\(item.cheqact)] Solicitado: [\(item.cheqsol)]" + salto
+        }
+        if item.nompadreact != item.nompadresol {
+            otroscampos += "Nombre del padre actual: [\(item.nompadreact)] Solicitado: [\(item.nompadresol)]" + salto
+        }
+        if item.nommadreact != item.nommadresol {
+            otroscampos += "Nombre de la madre actual: [\(item.nommadreact)] Solicitado: [\(item.nommadresol)]" + salto
+        }
+        let fechaJubAct = item.fechajubact?.date.formatearFecha() ?? ""
+        let fechaJubSol = item.fechajubsol?.date.formatearFecha() ?? ""
+        if !fechaJubAct.isEmpty || !fechaJubSol.isEmpty {
+            otroscampos += "Fecha jubilación actual: [\(fechaJubAct)] Solicitado: [\(fechaJubSol)]" + salto
+        }
+        if item.foliojubact != item.foliojubsol {
+            otroscampos += "Folio jubilación actual: [\(item.foliojubact)] Solicitado: [\(item.foliojubsol)]" + salto
+        }
+        if item.porcjubact != item.porcjubsol {
+            otroscampos += "Porcentaje jubilación actual: [\(item.porcjubact)] Solicitado: [\(item.porcjubsol)]" + salto
+        }
+        let tienePenAct = item.pensact == 1
+        let tienePenSol = item.penssol == 1
+        let procesaPension = item.pensact != item.penssol || tienePenAct || tienePenSol
+        if procesaPension {
+            otroscampos += "Tiene pensión actual: [\(item.pensact)] Solicitado: [\(item.penssol)]" + salto
+            if item.porcalimact != item.porcalimsol {
+                otroscampos += "Porc. pensión alimenticia actual: [\(item.porcalimact)] Solicitado: [\(item.porcalimsol)]" + salto
+            }
+            if item.porcalim2act != item.porcalim2sol {
+                otroscampos += "Porc. pensión alimenticia 2 actual: [\(item.porcalim2act)] Solicitado: [\(item.porcalim2sol)]" + salto
+            }
+            if item.porcalim3act != item.porcalim3sol {
+                otroscampos += "Porc. pensión alimenticia 3 actual: [\(item.porcalim3act)] Solicitado: [\(item.porcalim3sol)]" + salto
+            }
+            if item.imppenact != item.imppensol {
+                otroscampos += "Importe pensión actual: [\(item.imppenact)] Solicitado: [\(item.imppensol)]" + salto
+            }
+            if item.imppen2act != item.imppen2sol {
+                otroscampos += "Importe pensión 2 actual: [\(item.imppen2act)] Solicitado: [\(item.imppen2sol)]" + salto
+            }
+            if item.imppen3act != item.imppen3sol {
+                otroscampos += "Importe pensión 3 actual: [\(item.imppen3act)] Solicitado: [\(item.imppen3sol)]" + salto
+            }
+            if item.descpenalimact != item.descpenalimsol {
+                otroscampos += "Descripción pensión actual: [\(item.descpenalimact)] Solicitado: [\(item.descpenalimsol)]" + salto
+            }
+            if item.descpenalim2act != item.descpenalim2sol {
+                otroscampos += "Descripción pensión 2 actual: [\(item.descpenalim2act)] Solicitado: [\(item.descpenalim2sol)]" + salto
+            }
+            if item.descpenalim3act != item.descpenalim3sol {
+                otroscampos += "Descripción pensión 3 actual: [\(item.descpenalim3act)] Solicitado: [\(item.descpenalim3sol)]" + salto
+            }
+            if item.folpenact != item.folpensol {
+                otroscampos += "Folio pensión actual: [\(item.folpenact)] Solicitado: [\(item.folpensol)]" + salto
+            }
+            if item.folpen2act != item.folpen2sol {
+                otroscampos += "Folio pensión 2 actual: [\(item.folpen2act)] Solicitado: [\(item.folpen2sol)]" + salto
+            }
+            if item.folpen3act != item.folpen3sol {
+                otroscampos += "Folio pensión 3 actual: [\(item.folpen3act)] Solicitado: [\(item.folpen3sol)]" + salto
+            }
+        }
+        if item.sindact != item.sindsol {
+            otroscampos += "Es sindicalizado actual: [\(item.sindact)] Solicitado: [\(item.sindsol)]" + salto
+        }
+        if item.cuotasindact != item.cuotasindsol {
+            otroscampos += "Cuota sindical actual: [\(item.cuotasindact)] Solicitado: [\(item.cuotasindsol)]" + salto
+        }
+        if item.tipocuentact != item.tipocuentsol {
+            otroscampos += "Tipo cuenta actual: [\(item.tipocuentact)] Solicitado: [\(item.tipocuentsol)]" + salto
+        }
+        if item.emailact != item.emailsol {
+            otroscampos += "Email actual: [\(item.emailact)] Solicitado: [\(item.emailsol)]" + salto
+        }
+        if item.emailempact != item.emailempsol {
+            otroscampos += "Email de la empresa actual: [\(item.emailempact)] Solicitado: [\(item.emailempsol)]" + salto
+        }
+        if item.regcontact != item.regcontsol {
+            otroscampos += "Regimen contratación actual: [\(item.regcontact)] Solicitado: [\(item.regcontsol)]" + salto
+        }
+        if item.tipcontsatact != item.tipcontsatsol {
+            otroscampos += "Tipo contrato SAT actual: [\(item.tipcontsatact) - \(item.tipocontsatdescact)] Solicitado: [\(item.tipcontsatsol) - \(item.tipocontsatdescsol)]" + salto
+        }
+        if item.tipojornsatact != item.tipojornsatsol {
+            otroscampos += "Tipo jornada SAT actual: [\(item.tipojornsatact) - \(item.tipojornsatdescact)] Solicitado: [\(item.tipojornsatsol) - \(item.tipojornsatdescsol)]" + salto
+        }
+        if item.tiporegsatact != item.tiporegsatsol {
+            otroscampos += "Tipo régimen SAT actual: [\(item.tiporegsatact) - \(item.tiporegsatdescact)] Solicitado: [\(item.tiporegsatsol) - \(item.tiporegsatdescsol)]" + salto
+        }
+        if item.edosatact != item.edosatsol {
+            otroscampos += "Estado SAT actual: [\(item.edosatact) - \(item.edosatdescact)] Solicitado: [\(item.edosatsol) - \(item.edosatdescsol)]" + salto
+        }
+        if item.puesimsact != item.puesimssol {
+            otroscampos += "Puesto Id IMSS actual: [\(item.puesimsact) - \(item.puesimsdescact)] Solicitado: [\(item.puesimssol) - \(item.puesimsdescsol)]" + salto
+        }
+        if item.escact != item.escsol {
+            otroscampos += "Escolaridad Actual: [\(item.escact) - \(item.escdescact)] Solicitado: [\(item.escsol) - \(item.escdescsol)]" + salto
+        }
+        if item.uniact != item.unisol {
+            otroscampos += "Carrera universitaria actual: [\(item.uniact)] Solicitado: [\(item.unisol)]" + salto
+        }
+        if item.estactact != item.estactsol {
+            otroscampos += "Estudia actualmente actual: [\(item.estactact)] Solicitado: [\(item.estactsol)]" + salto
+        }
+        if item.queestact != item.queestsol {
+            otroscampos += "Qué estudia actual: [\(item.queestact)] Solicitado: [\(item.queestsol)]" + salto
+        }
+        if item.medestact != item.medestsol {
+            otroscampos += "Medio de estudio actual: [\(item.medestact) - \(item.medestdescact)] Solicitado: [\(item.medestsol) - \(item.medestdescsol)]" + salto
+        }
+        if item.condvivact != item.condvivsol {
+            otroscampos += "Condiciones de vivienda actual: [\(item.condvivact) - \(item.condvivdescact)] Solicitado: [\(item.condvivsol) - \(item.condvivdescsol)]" + salto
+        }
+        if item.viveact != item.vivesol {
+            otroscampos += "Con quién vive actual: [\(item.viveact) - \(item.vivedescact)] Solicitado: [\(item.vivesol) - \(item.vivedescsol)]" + salto
+        }
+        if item.nomconyuact != item.nomconyusol {
+            otroscampos += "Nombre del cónyuge actual: [\(item.nomconyuact)] Solicitado: [\(item.nomconyusol)]" + salto
+        }
+        if item.canthijosact != item.canthijossol {
+            otroscampos += "Cantidad de hijos actual: [\(item.canthijosact)] Solicitado: [\(item.canthijossol)]" + salto
+        }
+        if item.nomhijoact != item.nomhijosol {
+            otroscampos += "Nombre del hijo 1 actual: [\(item.nomhijoact)] Solicitado: [\(item.nomhijosol)]" + salto
+        }
+        if item.edadhijoact != item.edadhijosol {
+            otroscampos += "Edad del hijo 1 actual: [\(item.edadhijoact)] Solicitado: [\(item.edadhijosol)]" + salto
+        }
+        if item.hijoescact != item.hijoescsol {
+            otroscampos += "Hijos en edad escolar actual: [\(item.hijoescact)] Solicitado: [\(item.hijoescsol)]" + salto
+        }
+        if item.numdepecact != item.numdepecsol {
+            otroscampos += "Número de dependientes económicos actual: [\(item.numdepecact)] Solicitado: [\(item.numdepecsol)]" + salto
+        }
+        if item.enfcroact != item.enfcrosol {
+            otroscampos += "Tiene enfermedad crónica actual: [\(item.enfcroact)] Solicitado: [\(item.enfcrosol)]" + salto
+        }
+        if item.nomenfcroact != item.nomenfcrosol {
+            otroscampos += "Nombre de la enfermedad crónica actual: [\(item.nomenfcroact)] Solicitado: [\(item.nomenfcrosol)]" + salto
+        }
+        if item.segvidaact != item.segvidasol {
+            otroscampos += "Tiene seguro de vida actual: [\(item.segvidaact)] Solicitado: [\(item.segvidasol)]" + salto
+        }
+        if item.nombensegvidaact != item.nombensegvidasol {
+            otroscampos += "Beneficiario del seguro de vida actual: [\(item.nombensegvidaact)] Solicitado: [\(item.nombensegvidasol)]" + salto
+        }
+        if item.montoasegact != item.montoasegsol {
+            otroscampos += "Monto asegurado actual: [\(item.montoasegact)] Solicitado: [\(item.montoasegsol)]" + salto
+        }
+        if item.seggastosact != item.seggastossol {
+            otroscampos += "Seguro de gastos médicos mayores actual: [\(item.seggastosact)] Solicitado: [\(item.seggastossol)]" + salto
+        }
+        if item.nombecimact != item.nombecimsol {
+            otroscampos += "Beneficiarios SGMM actual: [\(item.nombecimact)] Solicitado: [\(item.nombecimsol)]" + salto
+        }
+        if item.nomemgact != item.nomemgsol {
+            otroscampos += "Persona de emergencia actual: [\(item.nomemgact)] Solicitado: [\(item.nomemgsol)]" + salto
+        }
+        if item.bengasact != item.bengassol {
+            otroscampos += "Beneficio gas sin cargo actual: [\(item.bengasact)] Solicitado: [\(item.bengassol)]" + salto
+        }
+        if item.bencomact != item.bencomsol {
+            otroscampos += "Beneficio comedor actual: [\(item.bencomact)] Solicitado: [\(item.bencomsol)]" + salto
+        }
+        if item.bentraact != item.bentrasol {
+            otroscampos += "Beneficio transporte actual: [\(item.bentraact)] Solicitado: [\(item.bentrasol)]" + salto
+        }
+        if item.benmamact != item.benmamsol {
+            otroscampos += "Beneficio mamá actual: [\(item.benmamact)] Solicitado: [\(item.benmamsol)]" + salto
+        }
+        if item.benpapact != item.benpapsol {
+            otroscampos += "Beneficio papá actual: [\(item.benpapact)] Solicitado: [\(item.benpapsol)]" + salto
+        }
+        if item.bendianinoact != item.bendianinosol {
+            otroscampos += "Beneficio día del niño actual: [\(item.bendianinoact)] Solicitado: [\(item.bendianinosol)]" + salto
+        }
+        if item.suelreact != item.suelresol {
+            otroscampos += "Sueldo diario real actual: [\(item.suelreact)] Solicitado: [\(item.suelresol)]" + salto
+        }
+        if item.bandepact != item.bandepsol {
+            otroscampos += "Banco depósito actual: [\(item.bandepact) - \(item.bandepdescact)] Solicitado: [\(item.bandepsol) - \(item.bandepdescsol)]" + salto
+        }
+        if item.claintdepact != item.claintdepsol {
+            otroscampos += "CLABE interbancaria actual: [\(item.claintdepact)] Solicitado: [\(item.claintdepsol)]" + salto
+        }
+        if item.suelimpenact != item.suelimpensol {
+            otroscampos += "Sueldo real IMSS por pensión actual: [\(item.suelimpenact)] Solicitado: [\(item.suelimpensol)]" + salto
+        }
+        if item.razpatact != item.razpatsol {
+            otroscampos += "Razón social patronal actual: [\(item.razpatact)] Solicitado: [\(item.razpatsol)]" + salto
+        }
+        if item.empcompact != item.empcompsol {
+            otroscampos += "Empresa complemento de nómina actual: [\(item.empcompact)] Solicitado: [\(item.empcompsol)]" + salto
+        }
+        let tieneFonAct = item.fonact == 1
+        let tieneFonSol = item.fonsol == 1
+        let procesaFonacot = item.fonact != item.fonsol || tieneFonAct || tieneFonSol
+        if procesaFonacot {
+            otroscampos += "Tiene Fonacot actual: [\(item.fonact)] Solicitado: [\(item.fonsol)]" + salto
+            if item.numfonact != item.numfonsol {
+                otroscampos += "Número crédito Fonacot actual: [\(item.numfonact)] Solicitado: [\(item.numfonsol)]" + salto
+            }
+            if item.fechainifonact != nil || item.fechainifonsol != nil {
+                let fechaActual = item.fechainifonact ?? ""
+                let fechaSolicitado = item.fechainifonsol ?? ""
+                otroscampos += "Fecha inicio descuento Fonacot actual: [\(fechaActual)] Solicitado: [\(fechaSolicitado)]" + salto
+            }
+            if item.impfonact != item.impfonsol {
+                otroscampos += "Importe descuento Fonacot actual: [\(item.impfonact)] Solicitado: [\(item.impfonsol)]" + salto
+            }
+        }
         return otroscampos
     }
 }
