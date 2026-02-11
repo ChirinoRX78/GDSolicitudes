@@ -384,6 +384,10 @@ struct cartaWorkflow: View {
         case .creditoclientes: CreditoClientesView(solicitudID: wf.id)
         case .plantilla: PlantillaView(solicitudID: wf.id)
         case .personal: PersonalView(solicitudID: wf.id)
+        case .puestos: PuestoView(solicitudID: wf.id)
+        case .salario: SalarioView(solicitudID: wf.id)
+        case .reingreso: ReingresoView(solicitudID: wf.id)
+        case .baja: BajaView(solicitudID: wf.id)
         case .none: NoSoportadoView(procesoID: wf.procesoId, solicitudID: wf.id)
         }
     }
@@ -562,6 +566,10 @@ enum ProcesoWf: Int {
     case creditoclientes = 10
     case plantilla = 11
     case personal = 12
+    case puestos = 13
+    case salario = 14
+    case reingreso = 15
+    case baja = 16
 }
 enum WfRoute: Hashable {
     case descuento(solicitud: Int)
@@ -574,5 +582,9 @@ enum WfRoute: Hashable {
     case creditoclientes(solicitud: Int)
     case plantilla(solicitud: Int)
     case personal(solicitud: Int)
+    case puestos(solicitud: Int)
+    case salario(solicitud: Int)
+    case reingreso(solicitud: Int)
+    case baja(solicitud: Int)
     case nosoportado(procesoID: Int, solicitud: Int)
 }

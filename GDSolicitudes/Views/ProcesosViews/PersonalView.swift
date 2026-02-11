@@ -209,14 +209,14 @@ struct PersonalView: View {
         if item.soltemp == 1 {
             let fechatempini = item.fechatempini?.date.formatearFecha()
             let fechatempfin = item.fechatempfin?.date.formatearFecha()
-            otroscampos += "Puesto temporal desde: \(fechatempini ?? "") Hasta: \(fechatempfin ?? "")"
+            otroscampos += "Puesto temporal desde: \(fechatempini ?? "") Hasta: \(fechatempfin ?? "")" + salto
         } else {
-            otroscampos += "Puesto temporal N/A"
+            otroscampos += "Puesto temporal N/A" + salto
         }
         let nombreact = "\(item.nomact) \(item.apepatact) \(item.apematact)"
         let nombresol = "\(item.nomsol) \(item.apepatsol) \(item.apematsol)"
-        otroscampos += "Nombre Actual: [\(nombreact)] Solicitado: [\(nombresol)]"
-        otroscampos += "Puesto Actual: [\(item.puestoact) - \(item.puestodescact)] Solicitado: [\(item.puestosol) - \(item.puestodescsol)]"
+        otroscampos += "Nombre Actual: [\(nombreact)] Solicitado: [\(nombresol)]" + salto
+        otroscampos += "Puesto Actual: [\(item.puestoact) - \(item.puestodescact)] Solicitado: [\(item.puestosol) - \(item.puestodescsol)]" + salto
         if item.famempact != item.famempsol {
             if item.nomfamact != item.nomfamsol {
                 otroscampos += "Nombre del familiar actual: [\(item.nomfamact)] Solicitado: [\(item.nomfamsol)]" + salto
@@ -372,7 +372,7 @@ struct PersonalView: View {
             otroscampos += "Días de vacaciones actual: [\(item.vacact)] Solicitado: [\(item.vacsol)]" + salto
         }
         if item.sueldoimssact != item.sueldoimsssol {
-            otroscampos += "Sueldo diario IMSS actual: [\(item.sueldoimssact)] Solicitado: [\(item.sueldoimsssol)]" + salto
+            otroscampos += "Sueldo diario IMSS actual: [$\(item.sueldoimssact)] Solicitado: [$\(item.sueldoimsssol)]" + salto
         }
         if item.tiposalact != item.tiposalsol {
             otroscampos += "Tipo salario actual: [\(item.tiposalact) - \(item.tiposaldescact)] Solicitado: [\(item.tiposalsol) - \(item.tiposaldescsol)]" + salto
@@ -387,7 +387,7 @@ struct PersonalView: View {
             otroscampos += "Número de tarjeta actual: [\(item.numtaract)] Solicitado: [\(item.numtarsol)]" + salto
         }
         if item.salbiantact != item.salbiantsol {
-            otroscampos += "Salario bimestral anterior actual: [\(item.salbiantact)] Solicitado: [\(item.salbiantsol)]" + salto
+            otroscampos += "Salario bimestral anterior actual: [$\(item.salbiantact)] Solicitado: [$\(item.salbiantsol)]" + salto
         }
         let tieneInfoAct = item.infoact == 1
         let tieneInfoSol = item.infosol == 1
@@ -525,13 +525,13 @@ struct PersonalView: View {
                 otroscampos += "Porc. pensión alimenticia 3 actual: [\(item.porcalim3act)] Solicitado: [\(item.porcalim3sol)]" + salto
             }
             if item.imppenact != item.imppensol {
-                otroscampos += "Importe pensión actual: [\(item.imppenact)] Solicitado: [\(item.imppensol)]" + salto
+                otroscampos += "Importe pensión actual: [$\(item.imppenact)] Solicitado: [$\(item.imppensol)]" + salto
             }
             if item.imppen2act != item.imppen2sol {
-                otroscampos += "Importe pensión 2 actual: [\(item.imppen2act)] Solicitado: [\(item.imppen2sol)]" + salto
+                otroscampos += "Importe pensión 2 actual: [$\(item.imppen2act)] Solicitado: [$\(item.imppen2sol)]" + salto
             }
             if item.imppen3act != item.imppen3sol {
-                otroscampos += "Importe pensión 3 actual: [\(item.imppen3act)] Solicitado: [\(item.imppen3sol)]" + salto
+                otroscampos += "Importe pensión 3 actual: [$\(item.imppen3act)] Solicitado: [$\(item.imppen3sol)]" + salto
             }
             if item.descpenalimact != item.descpenalimsol {
                 otroscampos += "Descripción pensión actual: [\(item.descpenalimact)] Solicitado: [\(item.descpenalimsol)]" + salto
@@ -667,7 +667,7 @@ struct PersonalView: View {
             otroscampos += "Beneficio día del niño actual: [\(item.bendianinoact)] Solicitado: [\(item.bendianinosol)]" + salto
         }
         if item.suelreact != item.suelresol {
-            otroscampos += "Sueldo diario real actual: [\(item.suelreact)] Solicitado: [\(item.suelresol)]" + salto
+            otroscampos += "Sueldo diario real actual: [$\(item.suelreact)] Solicitado: [$\(item.suelresol)]" + salto
         }
         if item.bandepact != item.bandepsol {
             otroscampos += "Banco depósito actual: [\(item.bandepact) - \(item.bandepdescact)] Solicitado: [\(item.bandepsol) - \(item.bandepdescsol)]" + salto
@@ -676,7 +676,7 @@ struct PersonalView: View {
             otroscampos += "CLABE interbancaria actual: [\(item.claintdepact)] Solicitado: [\(item.claintdepsol)]" + salto
         }
         if item.suelimpenact != item.suelimpensol {
-            otroscampos += "Sueldo real IMSS por pensión actual: [\(item.suelimpenact)] Solicitado: [\(item.suelimpensol)]" + salto
+            otroscampos += "Sueldo real IMSS por pensión actual: [$\(item.suelimpenact)] Solicitado: [$\(item.suelimpensol)]" + salto
         }
         if item.razpatact != item.razpatsol {
             otroscampos += "Razón social patronal actual: [\(item.razpatact)] Solicitado: [\(item.razpatsol)]" + salto
