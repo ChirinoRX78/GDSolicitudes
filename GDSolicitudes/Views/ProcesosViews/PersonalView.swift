@@ -698,7 +698,7 @@ struct PersonalView: View {
                 otroscampos += "Fecha inicio descuento Fonacot actual: [\(fechaActual)] Solicitado: [\(fechaSolicitado)]" + salto
             }
             if item.impfonact != item.impfonsol {
-                otroscampos += "Importe descuento Fonacot actual: [\(item.impfonact)] Solicitado: [\(item.impfonsol)]" + salto
+                otroscampos += "Importe descuento Fonacot actual: [\(item.impfonact)] Solicitado: [\(item.impfonsol)]"
             }
         }
         return otroscampos

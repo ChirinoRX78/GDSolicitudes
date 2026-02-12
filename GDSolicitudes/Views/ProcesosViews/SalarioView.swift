@@ -70,17 +70,10 @@ struct SalarioView: View {
                                             Text("\(item.prodescripcion)")
                                                 .font(.system(size: 20, weight: .bold))
                                                 .foregroundColor(Color("Blue1"))
-                                            let detalle = detalleAdicional(item)
-                                            if !detalle.isEmpty {
-                                                Text(detalle)
-                                                    .font(.system(size: 16, weight: .bold))
-                                                    .foregroundColor(Color("Red"))
-                                                    .padding(.bottom, 10)
-                                            }
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let feccad = item.fechacad.date.formatearFecha()
-                                                filaTablaPuestos(titulo: "Solicitud", valor: "\(solicitudID)")
+                                                filaTablaSalarios(titulo: "Solicitud", valor: "\(solicitudID)")
                                                 Divider()
                                                 //filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
                                                 Text("Datos Actuales/Solicitados")
@@ -93,8 +86,8 @@ struct SalarioView: View {
                                                     .foregroundColor(.black)
                                                     .padding(10)
                                                 Divider()
-                                                filaTablaPuestos(titulo: "Fecha caducidad", valor: feccad)
-                                                filaTablaPuestos(titulo: "Solicitante", valor: "\(item.solicitante)")
+                                                filaTablaSalarios(titulo: "Fecha caducidad", valor: feccad)
+                                                filaTablaSalarios(titulo: "Solicitante", valor: "\(item.solicitante)")
                                             }
                                             .padding(16)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -180,33 +173,43 @@ struct SalarioView: View {
             }
         }
     }
-    func detalleAdicional(_ item: Personal) -> String {
-        if (item.temp == 1) {
-            "Cambio de puesto temporal"
-        } else {
-            "Cambio de puesto"
-        }
-    }
     //MARK: Otros campos
-    func otrosCampos(_ item: Personal) -> String {
+    func otrosCampos(_ item: Salarios) -> String {
         //Detalles en otros campos
         let salto = "\n\n"
-        var otroscampos = "Colaborador: \(item.catpers) - \(item.catpersdesc)" + salto
+        var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
         let areaact = "\(item.areaact) - \(item.areadescact)"
         let areasol = "\(item.areasol) - \(item.areadescsol)"
-        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]"
+        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
         let pueact = "\(item.pueact) - \(item.puedescact)"
         let puesol = "\(item.puesol) - \(item.puedescsol)"
-        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]"
+        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
         let catact = "\(item.catact) - \(item.catdescact)"
         let catsol = "\(item.catsol) - \(item.catdescsol)"
-        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]"
-        let fectempini = item.fectempini?.date.formatearFecha()
-        let fectempfin = item.fectempfin?.date.formatearFecha()
-        if item.temp == 1 {
-            otroscampos += "Puesto temporal desde: \(fectempini) Hasta: \(fectempfin)"
-        } else {
-            otroscampos += "Puesto temporal N/A"
+        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo diario IMSS actual [$\(item.suediaimact)] Solicitado [$\(item.suediaimsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo diario real actual [$\(item.suediarealact)] Solicitado [$\(item.suediarealsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo semanal IMSS actual [$\(item.suesemimact)] Solicitado [$\(item.suesemimsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo semanal real actual [$\(item.suesemrealact)] Solicitado [$\(item.suesemrealsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo catorcenal IMSS actual [$\(item.suecatimact)] Solicitado [$\(item.suecatimsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo catorcenal real actual [$\(item.suecatrealact)] Solicitado [$\(item.suecatrealsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo mensual IMSS actual [$\(item.suemenimact)] Solicitado [$\(item.suemenimsol)]" + salto
+        }
+        if item.suediaimact != item.suediaimsol {
+            otroscampos += "Sueldo mensual real actual [$\(item.suemenrealact)] Solicitado [$\(item.suemenrealsol)]" + salto
         }
     }
 }

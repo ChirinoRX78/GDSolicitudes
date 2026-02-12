@@ -5,3 +5,266 @@
 //  Created by TI on 04/02/26.
 //
 
+import SwiftUI
+import Foundation
+
+struct ReingresoViewView: View {
+    @Environment(\.dismiss) private var dismiss
+    let solicitudID: Int
+    @State private var cargando = true
+    @State private var errorMsg: String? = nil
+    @State private var datos: [Reingresos] = []
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .top) {
+                Color("WhiteBG")
+                    .ignoresSafeArea()
+                GeometryReader { geo in
+                    Rectangle()
+                        .fill(Color("Blue1"))
+                        .frame(height: geo.safeAreaInsets.top)
+                        .edgesIgnoringSafeArea(.top)
+                }
+                //MARK: Header
+                HStack(spacing: 0) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.white)
+                            .padding(.leading, 30)
+                            .font(.system(size: 20, weight: .bold))
+                    }
+                    Text("Detalles")
+                        .font(.system(size: 20, weight: .semibold, design: .default))
+                        .foregroundColor(.white)
+                        .padding(.leading, 20)
+                    Spacer()
+                }
+                .navigationBarBackButtonHidden(true)
+                .padding(10)
+                .frame(width: .infinity, height: 120, alignment: .center)
+                .background(Color("Blue1"))
+                .clipShape (
+                    bordesRedondo(
+                        radio: 30,
+                        esquina: [.bottomLeft, .bottomRight])
+                )
+                //MARK: Carta con información:
+                VStack(spacing: 20) {
+                    ZStack(alignment: .leading) {
+                        VStack(spacing: 12) {
+                            if cargando {
+                                LottieView(name: "cargando", loopMode: .loop)
+                                    .frame(height: 500)
+                            } else if let errorMsg = errorMsg {
+                                Text(errorMsg)
+                                    .foregroundColor(.red)
+                            } else if datos.isEmpty {
+                                Text("No hay información para esta solicitud.")
+                                    .foregroundColor(.gray)
+                            } else {
+                                ScrollView {
+                                    VStack(spacing: 12) {
+                                        ForEach(datos) { item in
+                                            Text("\(item.prodescripcion)")
+                                                .font(.system(size: 20, weight: .bold))
+                                                .foregroundColor(Color("Blue1"))
+                                                let detalle = detalleAdicional(item)
+                                            if !detalle.isEmpty {
+                                                Text(detalle)
+                                                    .font(.system(size: 16, weight: .bold))
+                                                    .foregroundColor(Color("Red"))
+                                                    .padding(.bottom, 10)
+                                            }
+                                            //MARK: Detalles generales
+                                            VStack(alignment: .leading, spacing: 6) {
+                                                let feccad = item.fechacad.date.formatearFecha()
+                                                filaTablaReingreso(titulo: "Solicitud", valor: "\(solicitudID)")
+                                                Divider()
+                                                //filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
+                                                Text("Datos Actuales/Solicitados")
+                                                    .font(.system(size: 15, weight: .bold))
+                                                    .foregroundColor(Color("Blue1"))
+                                                    .padding(.leading, 50)
+                                                Divider()
+                                                Text(otrosCampos(item))
+                                                    .font(.system(size: 15, weight: .regular))
+                                                    .foregroundColor(.black)
+                                                    .padding(10)
+                                                Divider()
+                                                filaTablaReingreso(titulo: "Fecha caducidad", valor: feccad)
+                                                filaTablaReingreso(titulo: "Solicitante", valor: "\(item.solicitante)")
+                                            }
+                                            .padding(16)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .background(Color.white)
+                                            .cornerRadius(20)
+                                            .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 3)
+                                            //MARK: Detalles solicitud
+                                            VStack(alignment: .leading, spacing: 6) {
+                                                let fecsol = "\(item.fechasol.date.formatearFechaHora())"
+                                                let sla = "[\(item.sla) horas] \(item.fechasla.date.formatearFechaHora())"
+                                                let motivo = "\(item.motivo) - \(item.motivodesc)"
+                                                Text("Detalles de la solicitud")
+                                                    .bold()
+                                                    .font(.system(size: 16))
+                                                    .frame(maxWidth: .infinity, alignment: .center)
+                                                Text("Nivel: ").bold() + Text("\(item.nivel)")
+                                                Text("Autoriza: ").bold() + Text("\(item.autoriza)")
+                                                Text("Fecha de la solicitud: ").bold() + Text(fecsol)
+                                                Text("SLA: ").bold() + Text(sla)
+                                                Text("Motivo: ").bold() + Text(motivo)
+                                                Text("Detalle del motivo: ").bold() + Text("\(item.motivodetalle)")
+                                            }
+                                            .padding(.top, 10)
+                                            .font(.system(size: 15))
+                                            .foregroundColor(.black)
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                }
+                                //MARK: Botones
+                                HStack(spacing: 20) {
+                                    Button(action: {
+                                        print("Autorizar")
+                                    }) {
+                                        Text("Autorizar")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(.white)
+                                            .frame(width: 130, height: 45)
+                                            .background(Color("Green"))
+                                            .cornerRadius(25)
+                                    }
+                                    Button(action: {
+                                        print("Rechazar")
+                                    }) {
+                                        Text("Rechazar")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(.white)
+                                            .frame(width: 130, height: 45)
+                                            .background(Color("Red"))
+                                            .cornerRadius(25)
+                                    }
+                                }
+                                .padding(.top, 10)
+                                .padding(.bottom, 10)
+                            }
+                        }
+                    }
+                    .padding(.top, 10)
+                }
+                .padding()
+                .frame(width: 380, height: 760, alignment: .top)
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    .shadow(radius: 6)
+                    .offset(y: 90)
+            }
+            .onAppear {
+                cargar()
+            }
+        }
+    }
+    private func cargar() {
+        cargando = true
+        errorMsg = nil
+        ClienteAPI.obtenerReingreso(solicitud: solicitudID) { result in
+            cargando = false
+            switch result {
+            case .success(let arr):
+                self.datos = arr.data
+            case .failure(let error):
+                self.errorMsg = "Error: \(error.localizedDescription)"
+            }
+        }
+    }
+    func detalleAdicional(_ item: Reingresos) -> String {
+        if (item.temp == 1) {
+            "Recontratación a puesto temporal"
+        } else {
+            "Recontratación"
+        }
+    }
+    //MARK: Otros campos
+    func otrosCampos(_ item: Reingresos) -> String {
+        //Detalles en otros campos
+        let salto = "\n\n"
+        let fechabaja = item.fechabaja?.date.formatearFecha()
+        var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
+        otroscampos += "Fecha de baja: [\(fechabaja)]" + salto
+        if item.pueact != puesol {
+            let fechare = item.fechare?.date.formatearFecha()
+            otroscampos += "Fecha de reingreso solicitado  [\(fechare)]" + salto
+            let areaact = "\(item.areaact) - \(item.areadescact)"
+            let areasol = "\(item.areasol) - \(item.areadescsol)"
+            otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
+            let pueact = "\(item.pueact) - \(item.puedescact)"
+            let puesol = "\(item.puesol) - \(item.puedescsol)"
+            otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
+            let catact = "\(item.catact) - \(item.catdescact)"
+            let catsol = "\(item.catsol) - \(item.catdescsol)"
+            otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+        } else {
+            let fechare = item.fechare?.date.formatearFecha()
+            otroscampos += "Fecha de reingreso solicitado  [\(fechare)]" + salto
+            let areaact = "\(item.areaact) - \(item.areadescact)"
+            let areasol = "\(item.areasol) - \(item.areadescsol)"
+            otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
+            let pueact = "\(item.pueact) - \(item.puedescact)"
+            let puesol = "\(item.puesol) - \(item.puedescsol)"
+            otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
+            let catact = "\(item.catact) - \(item.catdescact)"
+            let catsol = "\(item.catsol) - \(item.catdescsol)"
+            otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+        }
+        if item.temp == 1 {
+            let fechatempini = item.fechatempini?.date.formatearFecha()
+            let fechatempfin = item.fechatempfin?.date.formatearFecha()
+            otroscampos += "Puesto temporal desde: \(fechatempini) Hasta: \(fechatempfin)" + salto
+        } else {
+            otroscampos += "Puesto Temporal N/A" + salto
+        }
+    }
+}
+struct filaTablaReingreso: View {
+    let titulo: String
+    let valor: String
+    var clave: Bool = false
+    var claveColor: Color = Color("Green")
+    var claveAncho: Bool = false
+    var body: some View {
+        HStack(alignment: .top, spacing: 0) {
+            Text(titulo)
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(Color("Blue1"))
+                .frame(width: 150, alignment: .leading)
+            if clave {
+                if claveAncho {
+                    Text(valor)
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 10)
+                        .background(claveColor)
+                        .cornerRadius(10)
+                } else {
+                    Text(valor)
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 10)
+                        .background(claveColor)
+                        .cornerRadius(10)
+                }
+            } else {
+                Text(valor)
+                    .font(.system(size: 15, weight: .regular))
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(.vertical, 6)
+    }
+}

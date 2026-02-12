@@ -13,7 +13,7 @@ struct PuestoView: View {
     let solicitudID: Int
     @State private var cargando = true
     @State private var errorMsg: String? = nil
-    @State private var datos: [Puesto] = []
+    @State private var datos: [Puestos] = []
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -180,7 +180,7 @@ struct PuestoView: View {
             }
         }
     }
-    func detalleAdicional(_ item: Personal) -> String {
+    func detalleAdicional(_ item: Puestos) -> String {
         if (item.temp == 1) {
             "Cambio de puesto temporal"
         } else {
@@ -188,19 +188,19 @@ struct PuestoView: View {
         }
     }
     //MARK: Otros campos
-    func otrosCampos(_ item: Personal) -> String {
+    func otrosCampos(_ item: Puestos) -> String {
         //Detalles en otros campos
         let salto = "\n\n"
-        var otroscampos = "Colaborador: \(item.catpers) - \(item.catpersdesc)" + salto
+        var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
         let areaact = "\(item.areaact) - \(item.areadescact)"
         let areasol = "\(item.areasol) - \(item.areadescsol)"
-        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]"
+        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
         let pueact = "\(item.pueact) - \(item.puedescact)"
         let puesol = "\(item.puesol) - \(item.puedescsol)"
-        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]"
+        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
         let catact = "\(item.catact) - \(item.catdescact)"
         let catsol = "\(item.catsol) - \(item.catdescsol)"
-        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]"
+        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
         let fectempini = item.fectempini?.date.formatearFecha()
         let fectempfin = item.fectempfin?.date.formatearFecha()
         if item.temp == 1 {

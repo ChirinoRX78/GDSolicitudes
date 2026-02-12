@@ -248,7 +248,7 @@ struct PlantillaView: View {
             otroscampos += "Categoría tipos de personal actual: [\(item.cattipodescact) - \(item.cattipodescdescact)] Solicitado: [\(item.cattipodescsol) - \(item.cattipodescdescsol)]" + salto
         }
         if (item.objact != item.objsol) {
-            otroscampos += "Objetivo general actual: [\(item.otrosact)] Solicitado: [\(item.otrossol)]" + salto
+            otroscampos += "Objetivo general actual: [\(item.otrosact)] Solicitado: [\(item.otrossol)]"
         }
         return otroscampos
     }
