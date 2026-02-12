@@ -14,6 +14,12 @@ struct DesbloqueoView: View {
     @State private var cargando = true
     @State private var errorMsg: String? = nil
     @State private var datos: [Desbloqueo] = []
+    @State private var mostrandoLoader = false
+    @State private var mostrarAlerta = false
+    @State private var mensajeAlerta = ""
+    @State private var confirmarAccion = false
+    @State private var urlSeleccionada: URL?
+    @State private var accionTexto = ""
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -134,37 +140,52 @@ struct DesbloqueoView: View {
                                 }
                                 //MARK: Botones
                                 HStack(spacing: 20) {
-                                    Button(action: {
-                                        print("Autorizar")
-                                    }) {
-                                        Text("Autorizar")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundColor(.white)
-                                            .frame(width: 130, height: 45)
-                                            .background(Color("Green"))
-                                            .cornerRadius(25)
+                                    ForEach(datos) { item in
+                                        Button {
+                                            prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                        } label: {
+                                            boton(texto: "Autorizar", color: Color("Green"))
+                                        }
+                                        Button {
+                                            prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                        } label: {
+                                            boton(texto: "Rechazar", color: Color("Red"))
+                                        }
                                     }
-                                    Button(action: {
-                                        print("Rechazar")
-                                    }) {
-                                        Text("Rechazar")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundColor(.white)
-                                            .frame(width: 130, height: 45)
-                                            .background(Color("Red"))
-                                            .cornerRadius(25)
-                                    }
-                                    .padding(.horizontal)
                                 }
                                 .padding(.top, 10)
                                 .padding(.bottom, 10)
+                                if mostrandoLoader {
+                                    Color.black.opacity(0.4)
+                                        .ignoresSafeArea()
+                                    ProgressView("Procesando...")
+                                        .padding(20)
+                                        .background(Color.white)
+                                        .cornerRadius(20)
+                                }
                             }
                         }
+                        .alert("Confirmación", isPresented: $confirmarAccion) {
+                                    Button("Cancelar", role: .cancel) {}
+                                    Button("Aceptar", role: .destructive) {
+                                        if let url = urlSeleccionada {
+                                            ejecutar(url: url)
+                                        }
+                                    }
+                                } message: {
+                                    Text("¿Deseas \(accionTexto) la solicitud?")
+                                }
+                                // Resultado
+                                .alert("Resultado", isPresented: $mostrarAlerta) {
+                                    Button("Aceptar", role: .cancel) {}
+                                } message: {
+                                    Text(mensajeAlerta)
+                                }
                     }
                     .padding(.top, 10)
                 }
                 .padding()
-                .frame(width: 380, height: 760, alignment: .top)
+                .frame(width: 380, height: 700, alignment: .top)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 6)
@@ -187,6 +208,44 @@ struct DesbloqueoView: View {
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
         }
+    }
+    //MARK: Ejecución de enlaces de autorización
+    private func boton(texto: String, color: Color) -> some View {
+        Text(texto)
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundColor(.white)
+            .frame(width: 130, height: 45)
+            .background(color)
+            .cornerRadius(25)
+    }
+    private func prepararConfirmacion(url: URL?, accion: String) {
+        guard let url = url else { return }
+        urlSeleccionada = url
+        accionTexto = accion
+        confirmarAccion = true
+    }
+    private func ejecutar(url: URL){
+        mostrandoLoader = true
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            DispatchQueue.main.async {
+                mostrandoLoader = false
+                if let error = error {
+                    mensajeAlerta = "Error: \(error.localizedDescription)"
+                    mostrarAlerta = true
+                    return
+                }
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        mensajeAlerta = "Proceso aplicado correctamente"
+                    } else {
+                        mensajeAlerta = "Error del servidor: (\(httpResponse.statusCode)"
+                    }
+                    mostrarAlerta = true
+                }
+            }
+        }.resume()
     }
 }
 struct filaTablaDes: View {

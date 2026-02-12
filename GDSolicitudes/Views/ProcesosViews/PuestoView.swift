@@ -156,7 +156,7 @@ struct PuestoView: View {
                     .padding(.top, 10)
                 }
                 .padding()
-                .frame(width: 380, height: 760, alignment: .top)
+                .frame(width: 380, height: 700, alignment: .top)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 6)
@@ -201,13 +201,14 @@ struct PuestoView: View {
         let catact = "\(item.catact) - \(item.catdescact)"
         let catsol = "\(item.catsol) - \(item.catdescsol)"
         otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
-        let fectempini = item.fectempini?.date.formatearFecha()
-        let fectempfin = item.fectempfin?.date.formatearFecha()
+        let fectempini = item.fectempini?.date.formatearFecha() ?? ""
+        let fectempfin = item.fectempfin?.date.formatearFecha() ?? ""
         if item.temp == 1 {
             otroscampos += "Puesto temporal desde: \(fectempini) Hasta: \(fectempfin)"
         } else {
             otroscampos += "Puesto temporal N/A"
         }
+        return otroscampos
     }
 }
 struct filaTablaPuestos: View {

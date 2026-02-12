@@ -73,21 +73,58 @@ struct BajaView: View {
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let feccad = item.fechacad.date.formatearFecha()
-                                                filaTablaBajas(titulo: "Solicitud", valor: "\(solicitudID)")
+                                                //filaTablaBajas(titulo: "Solicitud", valor: "\(solicitudID)")
+                                                Text("Solicitud")
+                                                    .font(.system(size: 15, weight: .bold))
+                                                    .foregroundColor(Color.white)
+                                                    .padding()
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("Blue1"))
+                                                Divider()
+                                                Text(verbatim: "\(solicitudID)")
+                                                    .font(.system(size: 15, weight: .regular))
+                                                    .foregroundColor(.black)
+                                                    .padding(.leading, 125)
                                                 Divider()
                                                 //filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
                                                 Text("Datos Actuales/Solicitados")
                                                     .font(.system(size: 15, weight: .bold))
-                                                    .foregroundColor(Color("Blue1"))
-                                                    .padding(.leading, 50)
+                                                    .foregroundColor(Color.white)
+                                                    .padding()
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("Blue1"))
                                                 Divider()
                                                 Text(otrosCampos(item))
                                                     .font(.system(size: 15, weight: .regular))
                                                     .foregroundColor(.black)
                                                     .padding(10)
                                                 Divider()
-                                                filaTablaBajas(titulo: "Fecha caducidad", valor: feccad)
-                                                filaTablaBajas(titulo: "Solicitante", valor: "\(item.solicitante)")
+                                                HStack {
+                                                    Text("Fecha caducidad")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .padding()
+                                                    Text("Solicitante")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .padding()
+                                                }
+                                                .frame(width: 300, height: 30)
+                                                .background(Color("Blue1"))
+                                                Divider()
+                                                HStack {
+                                                    Text("\(feccad)")
+                                                        .font(.system(size: 15, weight: .regular))
+                                                        .foregroundColor(.black)
+                                                        .padding(.leading, 45)
+                                                    Text("\(item.solicitante)")
+                                                        .font(.system(size: 15, weight: .regular))
+                                                        .foregroundColor(.black)
+                                                        .padding(.leading, 50)
+                                                }
+                                                .frame(width: 300, height: 80)
+                                                //filaTablaBajas(titulo: "Fecha caducidad", valor: feccad)
+                                                //filaTablaBajas(titulo: "Solicitante", valor: "\(item.solicitante)")
                                             }
                                             .padding(16)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -149,7 +186,7 @@ struct BajaView: View {
                     .padding(.top, 10)
                 }
                 .padding()
-                .frame(width: 380, height: 760, alignment: .top)
+                .frame(width: 380, height: 700, alignment: .top)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 6)
@@ -178,22 +215,21 @@ struct BajaView: View {
         //Detalles en otros campos
         let salto = "\n\n"
         var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
-        otroscampos += "Monto pagado: $\(item.monto)" + salto
+        let monto = if item.monto == ".01" { "0.01" } else { item.monto }
+        otroscampos += "Monto pagado: $\(monto)" + salto
         let causa = "\(item.causa) - \(item.causadesc)"
-        otroscampos += "Causa de baja [\(causa)]" + salto
-        let fechaing = item.fechaing?.date.formatearFecha()
-        otroscampos += "Fecha de ingreso [\(fechaing)]" + salto
+        otroscampos += "Causa de baja: [\(causa)]" + salto
+        let fechaing = item.fechaing.date.formatearFechaHora()
+        otroscampos += "Fecha de ingreso: [\(fechaing)]" + salto
         let areaact = "\(item.areaact) - \(item.areadescact)"
-        let areasol = "\(item.areasol) - \(item.areadescsol)"
-        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
+        otroscampos += "Área: [\(areaact)]" + salto
         let pueact = "\(item.pueact) - \(item.puedescact)"
-        let puesol = "\(item.puesol) - \(item.puedescsol)"
-        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
+        otroscampos += "Puesto: [\(pueact)]" + salto
         let catact = "\(item.catact) - \(item.catdescact)"
-        let catsol = "\(item.catsol) - \(item.catdescsol)"
-        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+        otroscampos += "Categoría del puesto: [\(catact)]" + salto
         let recontratar = if item.permitir == 1 { "SI "} else { "NO" }
-        otroscampos += "Permitir recontratar[\(recontratar)]"
+        otroscampos += "Permitir recontratar: [\(recontratar)]"
+        return otroscampos
     }
 }
 struct filaTablaBajas: View {

@@ -163,7 +163,7 @@ struct PrecioView: View {
                     .padding(.top, 10)
                 }
                 .padding()
-                .frame(width: 380, height: 760, alignment: .top)
+                .frame(width: 380, height: 700, alignment: .top)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 6)

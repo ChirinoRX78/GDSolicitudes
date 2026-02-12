@@ -19,13 +19,14 @@ struct Reingresos: Codable, Identifiable {
     let persid: Int
     let nom: String
     let fechabaja: FechaAPI
+    let fechaing: FechaAPI
     let fechare: FechaAPI
-    let areaact: String
-    let areasol: String
+    let areaact: Int
+    let areasol: Int
     let areadescact: String
     let areadescsol: String
-    let pueact: Int
-    let puesol: Int
+    let pueact: String
+    let puesol: String
     let puedescact: String
     let puedescsol: String
     let catact: String
@@ -54,19 +55,20 @@ struct Reingresos: Codable, Identifiable {
         case temp = "SolicitudTemporal"
         case persid = "PersonalID"
         case nom = "Nombres"
-        case fechabaja = "FechaBaja Actual"
-        case fechare = "FechaReingreso"
+        case fechabaja = "FechaBajaActual"
+        case fechaing = "FechaIngresoActual"
+        case fechare = "FechaReingresoSolicitado"
         case areaact = "AreaActual"
-        case areasol = "AreaDescripcionActual"
-        case areadescact = "AreaSolicitado"
+        case areasol = "AreaSolicitado"
+        case areadescact = "AreaDescripcionActual"
         case areadescsol = "AreaDescripcionSolicitado"
         case pueact = "PuestoActual"
-        case puesol = "PuestoDescripcionActual"
-        case puedescact = "PuestoSolicitado"
+        case puesol = "PuestoSolicitado"
+        case puedescact = "PuestoDescripcionActual"
         case puedescsol = "PuestoDescripcionSolicitado"
         case catact = "CategoriaDelPersonalIDActual"
-        case catsol = "CategoriaDelPersonalIDDescripcionActual"
-        case catdescact = "CategoriaDelPersonalIDSolicitado"
+        case catsol = "CategoriaDelPersonalIDSolicitado"
+        case catdescact = "CategoriaDelPersonalIDDescripcionActual"
         case catdescsol = "CategoriaDelPersonalIDDescripcionSolicitado"
         case fechatempini = "FechaTemporalInicial"
         case fechatempfin = "FechaTemporalFinal"

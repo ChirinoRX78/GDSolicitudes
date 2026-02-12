@@ -82,4 +82,12 @@ struct Desbloqueo: Codable, Identifiable {
         //Proceso
         case procesoid = "ProcesoID"
     }
+    var urlAutorizar: URL? {
+        let urlString = "https://www.google.com.mx"
+        return URL(string: urlString)
+    }
+    var urlRechazar: URL? {
+        let urlString = "https://www.google.com.mx"
+        return URL(string: urlString)
+    }
 }

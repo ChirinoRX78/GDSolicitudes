@@ -149,7 +149,7 @@ struct SalarioView: View {
                     .padding(.top, 10)
                 }
                 .padding()
-                .frame(width: 380, height: 760, alignment: .top)
+                .frame(width: 380, height: 700, alignment: .top)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 6)
@@ -211,6 +211,7 @@ struct SalarioView: View {
         if item.suediaimact != item.suediaimsol {
             otroscampos += "Sueldo mensual real actual [$\(item.suemenrealact)] Solicitado [$\(item.suemenrealsol)]" + salto
         }
+        return otroscampos
     }
 }
 struct filaTablaSalarios: View {

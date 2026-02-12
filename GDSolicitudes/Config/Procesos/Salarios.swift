@@ -63,7 +63,7 @@ struct Salarios: Codable, Identifiable {
         case solicitante = "SolicitanteNombre"
         //Detalles RH
         case nom = "Nombres"
-        case per = "PersonalID"
+        case perid = "PersonalID"
         case areaact = "AreaActual"
         case areasol = "AreaDescripcionActual"
         case areadescact = "AreaSolicitado"

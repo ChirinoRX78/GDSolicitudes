@@ -21,18 +21,12 @@ struct Bajas: Codable, Identifiable {
     let causa: String
     let causadesc: String
     let fechaing: FechaAPI
-    let areaact: String
-    let areasol: String
+    let areaact: Int
     let areadescact: String
-    let areadescsol: String
-    let pueact: Int
-    let puesol: Int
+    let pueact: String
     let puedescact: String
-    let puedescsol: String
     let catact: String
-    let catsol: String
     let catdescact: String
-    let catdescsol: String
     let permitir: Int
     //Detalles de la solicitud
     let nivel: Int
@@ -57,18 +51,12 @@ struct Bajas: Codable, Identifiable {
         case causa = "CausaBaja"
         case causadesc = "CausaBajaDescripcion"
         case fechaing = "FechaIngreso"
-        case areaact = "AreaActual"
-        case areasol = "AreaDescripcionActual"
-        case areadescact = "AreaSolicitado"
-        case areadescsol = "AreaDescripcionSolicitado"
-        case pueact = "PuestoActual"
-        case puesol = "PuestoDescripcionActual"
-        case puedescact = "PuestoSolicitado"
-        case puedescsol = "PuestoDescripcionSolicitado"
-        case catact = "CategoriaDelPersonalIDActual"
-        case catsol = "CategoriaDelPersonalIDDescripcionActual"
-        case catdescact = "CategoriaDelPersonalIDSolicitado"
-        case catdescsol = "CategoriaDelPersonalIDDescripcionSolicitado"
+        case areaact = "Area"
+        case areadescact = "AreaDescripcion"
+        case pueact = "Puesto"
+        case puedescact = "PuestoDescripcion"
+        case catact = "CategoriaDelPersonalID"
+        case catdescact = "CategoriaDelPersonalIDDescripcion"
         case permitir = "PermitirRecontratar"
         //Detalles de la solicitud
         case nivel = "SecuenciaAutorizacion"

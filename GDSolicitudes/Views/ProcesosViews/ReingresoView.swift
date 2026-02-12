@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-struct ReingresoViewView: View {
+struct ReingresoView: View {
     @Environment(\.dismiss) private var dismiss
     let solicitudID: Int
     @State private var cargando = true
@@ -156,7 +156,7 @@ struct ReingresoViewView: View {
                     .padding(.top, 10)
                 }
                 .padding()
-                .frame(width: 380, height: 760, alignment: .top)
+                .frame(width: 380, height: 700, alignment: .top)
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 6)
@@ -191,23 +191,23 @@ struct ReingresoViewView: View {
     func otrosCampos(_ item: Reingresos) -> String {
         //Detalles en otros campos
         let salto = "\n\n"
-        let fechabaja = item.fechabaja?.date.formatearFecha()
-        var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
+        let fechabaja = item.fechabaja.date.formatearFecha()
+        var otroscampos = "Colaborador: \(item.persid) - \(item.nom)" + salto
         otroscampos += "Fecha de baja: [\(fechabaja)]" + salto
-        if item.pueact != puesol {
-            let fechare = item.fechare?.date.formatearFecha()
+        if item.pueact != item.puesol {
+            let fechare = item.fechare.date.formatearFecha()
             otroscampos += "Fecha de reingreso solicitado  [\(fechare)]" + salto
             let areaact = "\(item.areaact) - \(item.areadescact)"
             let areasol = "\(item.areasol) - \(item.areadescsol)"
-            otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
+            otroscampos += "Área actual [\(areaact)] a integrarse: [\(areasol)]" + salto
             let pueact = "\(item.pueact) - \(item.puedescact)"
             let puesol = "\(item.puesol) - \(item.puedescsol)"
-            otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
+            otroscampos += "Puesto actual [\(pueact)] a integrarse: [\(puesol)]" + salto
             let catact = "\(item.catact) - \(item.catdescact)"
             let catsol = "\(item.catsol) - \(item.catdescsol)"
-            otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+            otroscampos += "Categoría del puesto actual [\(catact)] a integrarse: [\(catsol)]" + salto
         } else {
-            let fechare = item.fechare?.date.formatearFecha()
+            let fechare = item.fechare.date.formatearFecha()
             otroscampos += "Fecha de reingreso solicitado  [\(fechare)]" + salto
             let areaact = "\(item.areaact) - \(item.areadescact)"
             let areasol = "\(item.areasol) - \(item.areadescsol)"
@@ -220,12 +220,13 @@ struct ReingresoViewView: View {
             otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
         }
         if item.temp == 1 {
-            let fechatempini = item.fechatempini?.date.formatearFecha()
-            let fechatempfin = item.fechatempfin?.date.formatearFecha()
+            let fechatempini = item.fechatempini?.date.formatearFecha() ?? ""
+            let fechatempfin = item.fechatempfin?.date.formatearFecha() ?? ""
             otroscampos += "Puesto temporal desde: \(fechatempini) Hasta: \(fechatempfin)" + salto
         } else {
-            otroscampos += "Puesto Temporal N/A" + salto
+            otroscampos += "Puesto Temporal: N/A" + salto
         }
+        return otroscampos
     }
 }
 struct filaTablaReingreso: View {

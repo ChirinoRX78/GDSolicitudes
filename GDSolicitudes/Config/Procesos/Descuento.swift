@@ -48,6 +48,7 @@ struct Descuento: Codable, Identifiable {
     let monto: String
     //Proceso
     let procesoid: Int
+    let uuid: String
     enum CodingKeys: String, CodingKey {
         case solicitud = "SolicitudID"
         case prodescripcion = "ProcesoDescripcion"
@@ -87,5 +88,6 @@ struct Descuento: Codable, Identifiable {
         case monto = "CompromisoValor"
         //Proceso
         case procesoid = "ProcesoID"
+        case uuid = "New_ID"
     }
 }

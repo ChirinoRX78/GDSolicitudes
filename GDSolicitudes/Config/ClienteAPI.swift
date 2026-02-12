@@ -549,7 +549,7 @@ class ClienteAPI {
             }
             // DEBUG
             let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+            print("JSON Bajas RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaBaja.self, from: data)
                 DispatchQueue.main.async {
