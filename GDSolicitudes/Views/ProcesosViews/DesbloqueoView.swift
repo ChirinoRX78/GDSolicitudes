@@ -154,6 +154,7 @@ struct DesbloqueoView: View {
                                             .background(Color("Red"))
                                             .cornerRadius(25)
                                     }
+                                    .padding(.horizontal)
                                 }
                                 .padding(.top, 10)
                                 .padding(.bottom, 10)
