@@ -73,7 +73,6 @@ struct BajaView: View {
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let feccad = item.fechacad.date.formatearFecha()
-                                                //filaTablaBajas(titulo: "Solicitud", valor: "\(solicitudID)")
                                                 Text("Solicitud")
                                                     .font(.system(size: 15, weight: .bold))
                                                     .foregroundColor(Color.white)
@@ -86,7 +85,6 @@ struct BajaView: View {
                                                     .foregroundColor(.black)
                                                     .padding(.leading, 125)
                                                 Divider()
-                                                //filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
                                                 Text("Datos Actuales/Solicitados")
                                                     .font(.system(size: 15, weight: .bold))
                                                     .foregroundColor(Color.white)
@@ -123,8 +121,6 @@ struct BajaView: View {
                                                         .padding(.leading, 50)
                                                 }
                                                 .frame(width: 300, height: 80)
-                                                //filaTablaBajas(titulo: "Fecha caducidad", valor: feccad)
-                                                //filaTablaBajas(titulo: "Solicitante", valor: "\(item.solicitante)")
                                             }
                                             .padding(16)
                                             .frame(maxWidth: .infinity, alignment: .leading)

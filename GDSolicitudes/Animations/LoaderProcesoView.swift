@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct LoaderLoginView: View {
+struct LoaderProcesoView: View {
     var body: some View {
         ZStack {
             Circle()
                 .fill(Color.white)
                 .frame(width: 160, height: 160)
                 .ignoresSafeArea()
-            LottieView(name: "cargando", loopMode: .loop)
+            LottieView(name: "check", loopMode: .loop)
                 .frame(width: 350, height: 350)
         }
     }

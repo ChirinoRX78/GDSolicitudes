@@ -20,6 +20,9 @@ struct DesbloqueoView: View {
     @State private var confirmarAccion = false
     @State private var urlSeleccionada: URL?
     @State private var accionTexto = ""
+    @State private var procesando = false
+    @State private var accionPendiente: Accion? = nil
+    @State private var urlPendiente: URL? = nil
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -77,32 +80,176 @@ struct DesbloqueoView: View {
                                                 .font(.system(size: 20, weight: .bold))
                                                 .foregroundColor(Color("Blue1"))
                                             //MARK: Detalles generales
-                                            VStack(alignment: .leading, spacing: 6) {
+                                            VStack(alignment: .center, spacing: 6) {
                                                 let cliente = "\(item.cliente) - \(item.nom_cliente)"
                                                 let contrato = "\(item.contrato) - \(item.nom_contrato)"
                                                 let fecini = item.fechaini.date.formatearFecha()
                                                 let fecfin = item.fechafin.date.formatearFecha()
                                                 let fecpago = item.ultpagofecha.date.formatearFecha()
                                                 let feccad = item.fechacad.date.formatearFecha()
-                                                filaTablaDes(titulo: "Solicitud", valor: "\(solicitudID)")
-                                                filaTablaDes(titulo: "Cliente", valor: cliente)
-                                                filaTablaDes(titulo: "Contrato", valor: contrato)
-                                                Divider()
-                                                filaTablaDes(titulo: "Inicio desbloqueo", valor: fecini, clave: true)
-                                                filaTablaDes(titulo: "Fin desbloqueo", valor: fecfin, clave: true)
-                                                Divider()
-                                                filaTablaDes(titulo: "Saldo", valor: "$\(item.saldo)")
-                                                filaTablaDes(titulo: "Saldo vencido", valor: "$\(item.saldovencido)")
-                                                filaTablaDes(titulo: "Último pago", valor: "Abonó: $\(item.ultpago) el \(fecpago)")
-                                                Divider()
-                                                filaTablaDes(titulo: "Fecha caducidad", valor: feccad)
-                                                filaTablaDes(titulo: "Solicitante", valor: "\(item.solicitante)")
+                                                Text("Solicitud")
+                                                    .font(.system(size: 15, weight: .bold))
+                                                    .foregroundColor(Color.white)
+                                                    .padding()
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("Blue1"))
+                                                Text(verbatim: "\(solicitudID)")
+                                                    .font(.system(size: 15, weight: .regular))
+                                                    .foregroundColor(.black)
+                                                    .multilineTextAlignment(.center)
+                                                    .lineLimit(1)
+                                                    .truncationMode(.tail)
+                                                    .fixedSize(horizontal: false, vertical: true)
+                                                Text("Cliente")
+                                                    .font(.system(size: 15, weight: .bold))
+                                                    .foregroundColor(Color.white)
+                                                    .padding()
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("Blue1"))
+                                                Text(cliente)
+                                                    .font(.system(size: 15, weight: .regular))
+                                                    .foregroundColor(.black)
+                                                    .frame(width: 300, alignment: .center)
+                                                    .multilineTextAlignment(.center)
+                                                    .lineLimit(4)
+                                                    .truncationMode(.tail)
+                                                    .fixedSize(horizontal: false, vertical: true)
+                                                Text("Contrato")
+                                                    .font(.system(size: 15, weight: .bold))
+                                                    .foregroundColor(Color.white)
+                                                    .padding()
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("Blue1"))
+                                                Text("\(contrato)")
+                                                    .font(.system(size: 15, weight: .regular))
+                                                    .foregroundColor(.black)
+                                                    .multilineTextAlignment(.center)
+                                                    .lineLimit(1)
+                                                    .truncationMode(.tail)
+                                                    .fixedSize(horizontal: false, vertical: true)
+                                                HStack {
+                                                    Text("Fecha inicial de desbloqueo")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(2)
+                                                    Spacer()
+                                                        .frame(width: 30)
+                                                    Text("Fecha final de desbloqueo")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(2)
+                                                }
+                                                .frame(width: 300, height: 50)
+                                                .background(Color("Blue1"))
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 10)
+                                                    Text(fecini)
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(.white)
+                                                        .padding()
+                                                    Spacer()
+                                                        .frame(width: 20)
+                                                    Text(fecfin)
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(.white)
+                                                        .padding()
+                                                    Spacer()
+                                                        .frame(width: 10)
+                                                }
+                                                .frame(width: 300, height: 30)
+                                                .background(Color("Green"))
+                                                .padding(.bottom, -7)
+                                                .padding(.top, -6)
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 20)
+                                                    Text("Saldo")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .padding()
+                                                    Spacer()
+                                                        .frame(width: 40)
+                                                    Text("Saldo vencido")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .padding()
+                                                }
+                                                .frame(width: 300, height: 30)
+                                                .background(Color("Blue1"))
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 10)
+                                                    Text("$\(item.saldo)")
+                                                        .font(.system(size: 15, weight: .regular))
+                                                        .foregroundColor(.black)
+                                                        .padding()
+                                                    Spacer()
+                                                        .frame(width: 30)
+                                                    Text("$\(item.saldovencido)")
+                                                        .font(.system(size: 15, weight: .regular))
+                                                        .foregroundColor(.black)
+                                                        .padding()
+                                                    Spacer()
+                                                        .frame(width: 10)
+                                                }
+                                                .frame(width: 300, height: 20)
+                                                Text("Último pago")
+                                                    .font(.system(size: 15, weight: .bold))
+                                                    .foregroundColor(Color.white)
+                                                    .padding()
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("Blue1"))
+                                                Text("Abonó: $\(item.ultpago) el \(fecpago)")
+                                                    .font(.system(size: 15, weight: .regular))
+                                                    .foregroundColor(.black)
+                                                    .multilineTextAlignment(.center)
+                                                    .lineLimit(1)
+                                                    .truncationMode(.tail)
+                                                    .fixedSize(horizontal: false, vertical: true)
+                                                HStack {
+                                                    Text("Fecha de\ncaducidad")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(2)
+                                                    Spacer()
+                                                        .frame(width: 50)
+                                                    Text("Solicitante")
+                                                        .font(.system(size: 15, weight: .bold))
+                                                        .foregroundColor(Color.white)
+                                                }
+                                                .frame(width: 300, height: 50)
+                                                .background(Color("Blue1"))
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 30)
+                                                    Text(feccad)
+                                                        .font(.system(size: 15, weight: .regular))
+                                                        .foregroundColor(.black)
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(1)
+                                                        .truncationMode(.tail)
+                                                        .fixedSize(horizontal: false, vertical: true)
+                                                    Spacer()
+                                                        .frame(width: 20)
+                                                    Text("\(item.solicitante)")
+                                                        .font(.system(size: 15, weight: .regular))
+                                                        .foregroundColor(.black)
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(2)
+                                                        .truncationMode(.tail)
+                                                        .padding()
+                                                        .fixedSize(horizontal: false, vertical: true)
+                                                }
+                                                .frame(width: 300, height: 40)
+                                                .padding(.top, -3)
                                             }
                                             .padding(16)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .frame(maxWidth: .infinity, alignment: .center)
                                             .background(Color.white)
-                                            .cornerRadius(20)
-                                            .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 3)
                                             //MARK: Detalles solicitud
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let fecsol = "\(item.fechasol.date.formatearFechaHora())"
@@ -130,47 +277,46 @@ struct DesbloqueoView: View {
                                                 Text("Fecha del compromiso: ").bold() + Text(fechacomp)
                                                 Text("Monto del compromiso: ").bold() + Text("$\(item.monto)")
                                             }
-                                            .padding(.top, 10)
+                                            .padding(.top, 5)
                                             .font(.system(size: 15))
                                             .foregroundColor(.black)
-                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                            .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
                                         }
                                     }
                                     .padding(.horizontal)
-                                }
-                                //MARK: Botones
-                                HStack(spacing: 20) {
-                                    ForEach(datos) { item in
-                                        Button {
-                                            prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
-                                        } label: {
-                                            boton(texto: "Autorizar", color: Color("Green"))
-                                        }
-                                        Button {
-                                            prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
-                                        } label: {
-                                            boton(texto: "Rechazar", color: Color("Red"))
+                                    //MARK: Botones
+                                    HStack(spacing: 20) {
+                                        ForEach(datos) { item in
+                                            Button {
+                                                prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                            } label: {
+                                                boton(texto: "Autorizar", color: Color("Green"))
+                                            }
+                                            Button {
+                                                prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                            } label: {
+                                                boton(texto: "Rechazar", color: Color("Red"))
+                                            }
                                         }
                                     }
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 10)
                                 }
-                                .padding(.top, 10)
-                                .padding(.bottom, 10)
-                                if mostrandoLoader {
-                                    Color.black.opacity(0.4)
+                                if cargando {
+                                    LoaderProcesoView()
                                         .ignoresSafeArea()
-                                    ProgressView("Procesando...")
-                                        .padding(20)
-                                        .background(Color.white)
-                                        .cornerRadius(20)
+                                        .transition(.opacity)
+                                        .zIndex(999)
                                 }
                             }
                         }
                         .alert("Confirmación", isPresented: $confirmarAccion) {
-                                    Button("Cancelar", role: .cancel) {}
                                     Button("Aceptar", role: .destructive) {
                                         if let url = urlSeleccionada {
                                             ejecutar(url: url)
                                         }
+                                    }
+                                    Button("Cancelar", role: .cancel) {
                                     }
                                 } message: {
                                     Text("¿Deseas \(accionTexto) la solicitud?")
@@ -224,19 +370,29 @@ struct DesbloqueoView: View {
         accionTexto = accion
         confirmarAccion = true
     }
+    enum Accion {
+        case autorizar
+        case rechazar
+    }
     private func ejecutar(url: URL){
-        mostrandoLoader = true
+        DispatchQueue.main.async {
+            cargando = true
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         URLSession.shared.dataTask(with: request) { _, response, error in
             DispatchQueue.main.async {
-                mostrandoLoader = false
-                if let error = error {
+                    cargando = false
+            }
+            if let error = error {
+                DispatchQueue.main.async {
                     mensajeAlerta = "Error: \(error.localizedDescription)"
                     mostrarAlerta = true
                     return
                 }
-                if let httpResponse = response as? HTTPURLResponse {
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                DispatchQueue.main.async {
                     if httpResponse.statusCode == 200 {
                         mensajeAlerta = "Proceso aplicado correctamente"
                     } else {
