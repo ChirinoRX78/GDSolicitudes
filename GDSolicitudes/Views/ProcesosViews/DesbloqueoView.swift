@@ -49,6 +49,16 @@ struct DesbloqueoView: View {
                         .foregroundColor(.white)
                         .padding(.leading, 20)
                     Spacer()
+                    Button(action: {
+                        //
+                    }) {
+                        Image(systemName: "paperclip")
+                            .foregroundColor(.white)
+                            .padding(.leading, 30)
+                            .font(.system(size: 20, weight: .bold))
+                    }
+                    Spacer()
+                        .frame(width: 40)
                 }
                 .navigationBarBackButtonHidden(true)
                 .padding(10)
