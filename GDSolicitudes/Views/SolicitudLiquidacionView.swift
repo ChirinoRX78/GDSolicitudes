@@ -24,10 +24,17 @@ struct SolicitudLiquidacionView: View {
     private var filas: [filaTabla] {
         [
             .init(titulo: "Empresa", valor: liq.id.siglasEmpresaLiq, multilinea: true),
-            .init(titulo: "Fecha de venta", valor: liq.fecha.date.formatearFecha(), multilinea: false),
+            .init(titulo: "Fecha de venta", valor: liq.fecha.date.formatearFechaHora(), multilinea: false),
+//            .init(
+//                titulo: "Estación/Vehículo",
+//                valor: liq.alm == "0" ? liq.veh : liq.alm,
+//                multilinea: false
+//            ),
             .init(
                 titulo: "Estación/Vehículo",
-                valor: liq.alm == "0" ? liq.veh : liq.alm,
+                valor: !liq.veh.trimmingCharacters(in: .whitespaces).isEmpty
+                    ? liq.veh
+                    : (!liq.alm.trimmingCharacters(in: .whitespaces).isEmpty ? liq.alm : "-"),
                 multilinea: false
             ),
             .init(
@@ -105,23 +112,37 @@ struct SolicitudLiquidacionView: View {
                         VStack(spacing: 0) {
                             LazyVGrid(columns: columnas, spacing: 0) {
                                 ForEach(filas) { fila in
-                                    Text(fila.titulo)
+                                    /*Text(fila.titulo)
                                         .font(.system(size: 16, weight: .bold))
                                         .foregroundColor(.white)
                                         .frame(height: fila.multilinea ? nil : alto)
                                         .frame(maxWidth: .infinity, alignment: .center)
                                         .padding(.vertical, fila.multilinea ? 8 : 0)
-                                        .background(Color("Blue1"))
+                                        .background(Color("Blue1"))*/
                                     Group {
                                         if fila.multilinea {
+                                            Text(fila.titulo)
+                                                .font(.system(size: 16, weight: .bold))
+                                                .foregroundColor(.white)
+                                                .frame(height: fila.multilinea ? nil : alto)
+                                                .frame(maxWidth: .infinity, alignment: .center)
+                                                .fixedSize(horizontal: false, vertical: true)
+                                                .padding(.vertical, fila.multilinea ? 8 : 0)
+                                                .background(Color("Blue1"))
                                             Text(fila.valor)
                                                 .font(.system(size: 16,))
                                                 .foregroundColor(.black)
                                                 .frame(height: fila.multilinea ? nil : alto)
                                                 .frame(maxWidth: .infinity, alignment: .center)
                                                 .fixedSize(horizontal: false, vertical: true)
-                                                .padding(.vertical, 8)
                                         } else {
+                                            Text(fila.titulo)
+                                                .font(.system(size: 16, weight: .bold))
+                                                .foregroundColor(.white)
+                                                .frame(height: fila.multilinea ? nil : alto)
+                                                .frame(maxWidth: .infinity, alignment: .center)
+                                                .padding(.vertical, fila.multilinea ? 8 : 0)
+                                                .background(Color("Blue1"))
                                             Text(fila.valor)
                                                 .font(.system(size: 16))
                                                 .foregroundColor(.black)

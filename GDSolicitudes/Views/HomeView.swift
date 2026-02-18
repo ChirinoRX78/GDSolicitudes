@@ -76,15 +76,21 @@ struct HomeView: View {
                         )
                         VStack(alignment: .leading, spacing: 10) {
                             ZStack(alignment: .leading) {
-                                Text(usuarioInfo?.name ?? "Administrador del Sistema")
-                                    .font(.system(size: 20, weight: .bold))
-                                    .foregroundColor(usuarioInfo == nil ? .gray : Color("Blue1"))
-                                    .redacted(reason: usuarioInfo == nil ? .placeholder : [])
-                                    .opacity(usuarioInfo == nil ? 0.7 : 1)
-                                    .padding(.leading, 5)
-                                    .frame(height: 26, alignment: .leading)
-                                    .animation(.easeInOut(duration: 0.3), value: usuarioInfo != nil)
+                                if let nombre = usuarioInfo?.name {
+                                        Text(nombre)
+                                            .font(.system(size: 20, weight: .bold))
+                                            .foregroundColor(Color("Blue1"))
+                                            .transition(.opacity.combined(with: .move(edge: .top)))
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 6)
+                                            .fill(Color("Blue1").opacity(0.2))
+                                            .frame(width: 300, height: 22)
+                                            .redacted(reason: .placeholder)
+                                    }
                             }
+                            .animation(.easeInOut(duration: 0.5), value: usuarioInfo?.name)
+                            .padding(.leading, 5)
+                            .frame(height: 26, alignment: .leading)
                             Text("Seleccione el tipo de solicitud a autorizar:")
                                 .font(.system(size: 16, design: .default))
                                 .foregroundColor(Color.black)
@@ -147,13 +153,13 @@ struct HomeView: View {
                 }
                 ZStack {
                     if mostrarCartaWorkflow {
-                        cartaWorkflow(workflow: workflow)
+                        cartaWorkflow(workflow: workflow, cargando: cargando, recargar: cargarDatos)
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                             .padding(.top, 270)
                             .zIndex(10)
                     }
                     if mostrarCartaLiquidacion {
-                        cartaLiquidacion(liquidacion: liquidacion)
+                        cartaLiquidacion(liquidacion: liquidacion, cargando: cargando, recargar: cargarDatos)
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                             .padding(.top, 270)
                             .zIndex(10)
@@ -179,9 +185,10 @@ struct HomeView: View {
     //MARK: Funciones para carga de información
     func cargarDatos() {
         cargando = true
-        mensajeError = ""
+        mensajeError = nil
         ClienteAPI.obtenerInfo(usuario: usuario) { result in
             DispatchQueue.main.async {
+                self.cargando = false
                 switch result {
                 case .success(let response):
                     self.respuestaAPI = response
@@ -211,8 +218,9 @@ struct HomeView_Previews: PreviewProvider {
 //MARK: Carta liquidación
 struct cartaLiquidacion: View {
     let liquidacion: [DatosLiquidacion]
+    let cargando: Bool
+    let recargar: () -> Void
     @State private var showToast = false
-    @State private var cargando = true
     private let columnasTabla: [GridItem] = [
         GridItem(.fixed(60), alignment: .center), //Empresa
         GridItem(.fixed(70), alignment: .center),   // Fecha
@@ -251,6 +259,10 @@ struct cartaLiquidacion: View {
                         .buttonStyle(.plain)
                     }
                 }
+                .refreshable {
+                    recargar()
+                }
+                .tint(Color("Blue1"))
                 Spacer()
             }
             Spacer()
@@ -269,7 +281,7 @@ struct cartaLiquidacion: View {
                 }
             }
         )
-            .onAppear {
+            /*.onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     withAnimation {
                         cargando = false
@@ -278,9 +290,9 @@ struct cartaLiquidacion: View {
                         mostrarToast()
                     }
                 }
-            }
+            }*/
         }
-        private func mostrarToast() {
+        /*private func mostrarToast() {
             withAnimation {
                 showToast = true
             }
@@ -289,13 +301,14 @@ struct cartaLiquidacion: View {
                     showToast = false
                 }
             }
-        }
+        }*/
 }
 //MARK: Carta Workflow
 struct cartaWorkflow: View {
     let workflow: [DatosWorkflow]
+    let cargando: Bool
+    let recargar: () -> Void
     @State private var showToast = false
-    @State private var cargando = true
     private let columnasTabla: [GridItem] = [
         GridItem(.fixed(60), alignment: .center),
         GridItem(.fixed(60), alignment: .center),
@@ -334,6 +347,10 @@ struct cartaWorkflow: View {
                         .buttonStyle(.plain)
                     }
                 }
+                .refreshable {
+                    recargar()
+                }
+                .tint(Color("Blue1"))
                 Spacer()
             }
             Spacer()
@@ -343,7 +360,7 @@ struct cartaWorkflow: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 6)
-        .overlay(
+        /*.overlay(
             VStack {
                 Spacer()
                     if showToast {
@@ -361,9 +378,9 @@ struct cartaWorkflow: View {
                         mostrarToast()
                     }
                 }
-            }
+            }*/
     }
-    private func mostrarToast() {
+    /*private func mostrarToast() {
         withAnimation {
             showToast = true
         }
@@ -372,7 +389,7 @@ struct cartaWorkflow: View {
                 showToast = false
             }
         }
-    }
+    }*/
     @ViewBuilder
     private func destinoProceso(_ wf: DatosWorkflow) -> some View {
         let proceso =  ProcesoWf(rawValue: wf.procesoId)
