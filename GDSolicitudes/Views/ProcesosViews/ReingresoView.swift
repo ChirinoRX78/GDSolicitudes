@@ -85,7 +85,6 @@ struct ReingresoView: View {
                                                 Text(detalle)
                                                     .font(.system(size: 16, weight: .bold))
                                                     .foregroundColor(Color("Red"))
-                                                    .padding(.bottom, 10)
                                             }
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {

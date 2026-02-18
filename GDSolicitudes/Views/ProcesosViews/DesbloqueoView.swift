@@ -106,7 +106,6 @@ struct DesbloqueoView: View {
                                                 Text(verbatim: "\(solicitudID)")
                                                     .font(.system(size: 15, weight: .regular))
                                                     .foregroundColor(.black)
-                                                    .padding(.leading, 125)
                                                 Text("Cliente")
                                                     .font(.system(size: 15, weight: .bold))
                                                     .foregroundColor(Color.white)
@@ -255,8 +254,10 @@ struct DesbloqueoView: View {
                                                 .padding(.top, -3)
                                             }
                                             .padding(16)
-                                            .frame(maxWidth: .infinity, alignment: .center)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
                                             .background(Color.white)
+                                            .cornerRadius(20)
+                                            .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 3)
                                             //MARK: Detalles solicitud
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let fecsol = "\(item.fechasol.date.formatearFechaHora())"
@@ -291,24 +292,30 @@ struct DesbloqueoView: View {
                                         }
                                     }
                                     .padding(.horizontal)
-                                    //MARK: Botones
-                                    HStack(spacing: 20) {
-                                        ForEach(datos) { item in
-                                            Button {
-                                                prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
-                                            } label: {
-                                                boton(texto: "Autorizar", color: Color("Green"))
+                                }
+                                //MARK: Botones
+                                HStack(spacing: 20) {
+                                    ForEach(datos) { item in
+                                        Button {
+                                            if let url = item.urlAutorizar {
+                                                print("URL FINAL:", url.absoluteString)
                                             }
-                                            Button {
-                                                prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
-                                            } label: {
-                                                boton(texto: "Rechazar", color: Color("Red"))
+                                            //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                        } label: {
+                                            boton(texto: "Autorizar", color: Color("Green"))
+                                        }
+                                        Button {
+                                            if let url = item.urlRechazar {
+                                                print("URL FINAL:", url.absoluteString)
                                             }
+                                            //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                        } label: {
+                                            boton(texto: "Rechazar", color: Color("Red"))
                                         }
                                     }
-                                    .padding(.top, 10)
-                                    .padding(.bottom, 10)
                                 }
+                                .padding(.top, 10)
+                                .padding(.bottom, 10)
                                 if cargando {
                                     LoaderProcesoView()
                                         .ignoresSafeArea()

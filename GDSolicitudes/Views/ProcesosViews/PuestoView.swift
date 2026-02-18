@@ -14,6 +14,15 @@ struct PuestoView: View {
     @State private var cargando = true
     @State private var errorMsg: String? = nil
     @State private var datos: [Puestos] = []
+    @State private var mostrandoLoader = false
+    @State private var mostrarAlerta = false
+    @State private var mensajeAlerta = ""
+    @State private var confirmarAccion = false
+    @State private var urlSeleccionada: URL?
+    @State private var accionTexto = ""
+    @State private var procesando = false
+    @State private var accionPendiente: Accion? = nil
+    @State private var urlPendiente: URL? = nil
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -147,21 +156,6 @@ struct PuestoView: View {
                                                 }
                                                 .frame(width: 300, height: 40)
                                                 .padding(.top, -3)
-                                                /*filaTablaPuestos(titulo: "Solicitud", valor: "\(solicitudID)")
-                                                Divider()
-                                                //filaTablaPlantilla(titulo: "Datos Actuales/Solicitados", valor: otrosCampos(item))
-                                                Text("Datos Actuales/Solicitados")
-                                                    .font(.system(size: 15, weight: .bold))
-                                                    .foregroundColor(Color("Blue1"))
-                                                    .padding(.leading, 50)
-                                                Divider()
-                                                Text(otrosCampos(item))
-                                                    .font(.system(size: 15, weight: .regular))
-                                                    .foregroundColor(.black)
-                                                    .padding(10)
-                                                Divider()
-                                                filaTablaPuestos(titulo: "Fecha caducidad", valor: feccad)
-                                                filaTablaPuestos(titulo: "Solicitante", valor: "\(item.solicitante)")*/
                                             }
                                             .padding(16)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -194,31 +188,52 @@ struct PuestoView: View {
                                 }
                                 //MARK: Botones
                                 HStack(spacing: 20) {
-                                    Button(action: {
-                                        print("Autorizar")
-                                    }) {
-                                        Text("Autorizar")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundColor(.white)
-                                            .frame(width: 130, height: 45)
-                                            .background(Color("Green"))
-                                            .cornerRadius(25)
-                                    }
-                                    Button(action: {
-                                        print("Rechazar")
-                                    }) {
-                                        Text("Rechazar")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundColor(.white)
-                                            .frame(width: 130, height: 45)
-                                            .background(Color("Red"))
-                                            .cornerRadius(25)
+                                    ForEach(datos) { item in
+                                        Button {
+                                            if let url = item.urlAutorizar {
+                                                print("URL FINAL:", url.absoluteString)
+                                            }
+                                            //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                        } label: {
+                                            boton(texto: "Autorizar", color: Color("Green"))
+                                        }
+                                        Button {
+                                            if let url = item.urlRechazar {
+                                                print("URL FINAL:", url.absoluteString)
+                                            }
+                                            //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                        } label: {
+                                            boton(texto: "Rechazar", color: Color("Red"))
+                                        }
                                     }
                                 }
                                 .padding(.top, 10)
                                 .padding(.bottom, 10)
+                                if cargando {
+                                    LoaderProcesoView()
+                                        .ignoresSafeArea()
+                                        .transition(.opacity)
+                                        .zIndex(999)
+                                }
                             }
                         }
+                        .alert("Confirmación", isPresented: $confirmarAccion) {
+                                    Button("Aceptar", role: .destructive) {
+                                        if let url = urlSeleccionada {
+                                            ejecutar(url: url)
+                                        }
+                                    }
+                                    Button("Cancelar", role: .cancel) {
+                                    }
+                                } message: {
+                                    Text("¿Deseas \(accionTexto) la solicitud?")
+                                }
+                                // Resultado
+                                .alert("Resultado", isPresented: $mostrarAlerta) {
+                                    Button("Aceptar", role: .cancel) {}
+                                } message: {
+                                    Text(mensajeAlerta)
+                                }
                     }
                     .padding(.top, 10)
                 }
@@ -247,6 +262,54 @@ struct PuestoView: View {
             }
         }
     }
+    //MARK: Ejecución de enlaces de autorización
+    private func boton(texto: String, color: Color) -> some View {
+        Text(texto)
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundColor(.white)
+            .frame(width: 130, height: 45)
+            .background(color)
+            .cornerRadius(25)
+    }
+    private func prepararConfirmacion(url: URL?, accion: String) {
+        guard let url = url else { return }
+        urlSeleccionada = url
+        accionTexto = accion
+        confirmarAccion = true
+    }
+    enum Accion {
+        case autorizar
+        case rechazar
+    }
+    private func ejecutar(url: URL){
+        DispatchQueue.main.async {
+            cargando = true
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            DispatchQueue.main.async {
+                    cargando = false
+            }
+            if let error = error {
+                DispatchQueue.main.async {
+                    mensajeAlerta = "Error: \(error.localizedDescription)"
+                    mostrarAlerta = true
+                    return
+                }
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                DispatchQueue.main.async {
+                    if httpResponse.statusCode == 200 {
+                        mensajeAlerta = "Proceso aplicado correctamente"
+                    } else {
+                        mensajeAlerta = "Error del servidor: (\(httpResponse.statusCode)"
+                    }
+                    mostrarAlerta = true
+                }
+            }
+        }.resume()
+    }
     func detalleAdicional(_ item: Puestos) -> String {
         if (item.temp == 1) {
             "Cambio de puesto temporal"
@@ -261,19 +324,19 @@ struct PuestoView: View {
         var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
         let areaact = "\(item.areaact) - \(item.areadescact)"
         let areasol = "\(item.areasol) - \(item.areadescsol)"
-        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
+        otroscampos += "Área actual: [\(areaact)] Solicitado: [\(areasol)]" + salto
         let pueact = "\(item.pueact) - \(item.puedescact)"
         let puesol = "\(item.puesol) - \(item.puedescsol)"
-        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
+        otroscampos += "Puesto actual: [\(pueact)] Solicitado: [\(puesol)]" + salto
         let catact = "\(item.catact) - \(item.catdescact)"
         let catsol = "\(item.catsol) - \(item.catdescsol)"
-        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+        otroscampos += "Categoría del puesto actual: [\(catact)] Solicitado: [\(catsol)]" + salto
         let fectempini = item.fectempini?.date.formatearFecha() ?? ""
         let fectempfin = item.fectempfin?.date.formatearFecha() ?? ""
         if item.temp == 1 {
             otroscampos += "Puesto temporal desde: \(fectempini) Hasta: \(fectempfin)"
         } else {
-            otroscampos += "Puesto temporal N/A"
+            otroscampos += "Puesto temporal: N/A"
         }
         return otroscampos
     }

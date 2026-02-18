@@ -129,12 +129,13 @@ struct LoginView: View {
                             autenticar()
                         }){
                             Text("Acceder")
+                                .foregroundColor(.black)
+                                .frame(width: 320, height: 55)
+                                .background(Color.white)
+                                .font(.system(size: 20, weight: .semibold, design: .default))
+                                .cornerRadius(25)
                         }
-                        .foregroundColor(.black)
-                        .frame(width: 350, height: 55)
-                        .background(Color.white)
-                        .font(.system(size: 20, weight: .semibold, design: .default))
-                        .cornerRadius(25)
+//                        .contentShape(RoundedRectangle(cornerRadius: 10))
                         NavigationLink(
                             destination: HomeView(usuario: usuario),
                             isActive: $mostrarHome

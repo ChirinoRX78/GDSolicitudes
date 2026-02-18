@@ -103,6 +103,7 @@ struct HomeView: View {
                                     Text("Workflow")
                                         .padding(13)
                                         .font(.system(size: 16, weight: .semibold, design: .default))
+                                        .frame(width: 120)
                                         .foregroundColor(mostrarCartaWorkflow ? .white : Color("Blue1"))
                                         .background(mostrarCartaWorkflow ? Color("Blue1"): .clear)
                                         .cornerRadius(25)
@@ -123,6 +124,7 @@ struct HomeView: View {
                                     Text("Liquidación")
                                         .padding(13)
                                         .font(.system(size: 16, weight: .semibold, design: .default))
+                                        .frame(width: 120)
                                         .foregroundColor(mostrarCartaLiquidacion ? .white : Color("Blue1"))
                                         .background(mostrarCartaLiquidacion ? Color("Blue1"): .clear)
                                         .cornerRadius(25)
@@ -202,7 +204,8 @@ struct HomeView: View {
 }
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(usuario: "admin")
+//        HomeView(usuario: "admin")
+        LoginView()
     }
 }
 //MARK: Carta liquidación

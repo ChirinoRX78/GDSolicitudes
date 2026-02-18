@@ -80,6 +80,12 @@ struct GeocercaView: View {
                                             Text("\(item.prodescripcion)")
                                                 .font(.system(size: 20, weight: .bold))
                                                 .foregroundColor(Color("Blue1"))
+                                            let detalle = detalleAdicional(item)
+                                            if !detalle.isEmpty {
+                                                Text(detalle)
+                                                    .font(.system(size: 16, weight: .bold))
+                                                    .foregroundColor(Color("Red"))
+                                            }
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let cliente = "\(item.cliente) - \(item.nom_cliente)"
@@ -444,6 +450,22 @@ struct GeocercaView: View {
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
+        }
+    }
+    func detalleAdicional(_ item: Geocerca) -> String {
+        let lonSol = Int(item.lonsol) ?? 0
+        let latSol = Int(item.latsol) ?? 0
+        if ((item.latact != item.latsol) || (item.lonact != item.lonsol) || (item.radact != item.radsol)) &&
+           ((lonSol > 0) || (latSol > 0) || (item.radsol > 0)) {
+            return "Cambio de geocerca"
+        } else if item.singeodefsol == 1 {
+            return "Quitar geocerca permanente"
+        } else if item.singeotempsol == 1 {
+            return "Quitar geocerca temporalmente"
+        } else if item.geobloq == 1 {
+            return "Bloquear con geocerca"
+        } else {
+            return ""
         }
     }
 }

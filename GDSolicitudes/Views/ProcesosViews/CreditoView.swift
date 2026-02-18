@@ -87,12 +87,16 @@ struct CreditoView: View {
                                                 let fecpago = item.ultpagofecha.date.formatearFecha()
                                                 let feccad = item.fechacad.date.formatearFecha()
                                                 let otroscamposact = """
-                                                Cuenta contable actual: [\(item.cuenta) - \(item.nom_cuenta ?? "")]
-                                                Grupo actual: [\(item.grupo) - \(item.grupodesc ?? "")]
+                                                Cuenta contable actual:
+                                                [\(item.cuenta) - \(item.nom_cuenta ?? "")]
+                                                Grupo actual:
+                                                [\(item.grupo) - \(item.grupodesc ?? "")]
                                                 """
                                                 let otroscampossol = """
-                                                Cuenta contable solicitada: [\(item.cuentasol) - \(item.nom_cuentasol ?? "")]
-                                                Grupo solicitado: [\(item.gruposol) - \(item.grupodescsol ?? "")]
+                                                Cuenta contable solicitada:
+                                                [\(item.cuentasol) - \(item.nom_cuentasol ?? "")]
+                                                Grupo solicitado:
+                                                [\(item.gruposol) - \(item.grupodescsol ?? "")]
                                                 """
                                                 Text("Solicitud")
                                                     .font(.system(size: 15, weight: .bold))
@@ -124,11 +128,12 @@ struct CreditoView: View {
                                                     .padding()
                                                     .frame(width: 300, height: 30)
                                                     .background(Color("Blue1"))
-                                                Text("\(contrato)")
+                                                Text(contrato)
                                                     .font(.system(size: 15, weight: .regular))
                                                     .foregroundColor(.black)
+                                                    .frame(width: 300, alignment: .center)
                                                     .multilineTextAlignment(.center)
-                                                    .lineLimit(1)
+                                                    .lineLimit(4)
                                                     .truncationMode(.tail)
                                                     .fixedSize(horizontal: false, vertical: true)
                                                 HStack {
@@ -145,7 +150,7 @@ struct CreditoView: View {
                                                         .multilineTextAlignment(.center)
                                                         .lineLimit(2)
                                                 }
-                                                .frame(width: 300, height: 50)
+                                                .frame(width: 300, height: 30)
                                                 .background(Color("Blue1"))
                                                 HStack {
                                                     Spacer()
@@ -155,7 +160,7 @@ struct CreditoView: View {
                                                         .foregroundColor(.white)
                                                         .padding()
                                                     Spacer()
-                                                        .frame(width: 20)
+                                                        .frame(width: 100)
                                                     Text("\(item.diascreditosol)")
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(.white)
@@ -173,31 +178,28 @@ struct CreditoView: View {
                                                         .foregroundColor(Color.white)
                                                         .multilineTextAlignment(.center)
                                                         .lineLimit(2)
+                                                        .padding(.leading, 15)
                                                     Spacer()
-                                                        .frame(width: 30)
+                                                        .frame(width: 35)
                                                     Text("Límite solicitado")
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(Color.white)
                                                         .multilineTextAlignment(.center)
                                                         .lineLimit(2)
                                                 }
-                                                .frame(width: 300, height: 50)
+                                                .frame(width: 300, height: 30)
                                                 .background(Color("Blue1"))
                                                 HStack {
-                                                    Spacer()
-                                                        .frame(width: 10)
-                                                    Text("\(item.limcredito)")
+                                                    Text("$\(item.limcredito)")
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(.white)
                                                         .padding()
                                                     Spacer()
-                                                        .frame(width: 20)
-                                                    Text("\(item.limcreditosol)")
+                                                        .frame(width: 40)
+                                                    Text("$\(item.limcreditosol)")
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(.white)
                                                         .padding()
-                                                    Spacer()
-                                                        .frame(width: 10)
                                                 }
                                                 .frame(width: 300, height: 30)
                                                 .background(Color("Green"))
@@ -210,7 +212,7 @@ struct CreditoView: View {
                                                         .multilineTextAlignment(.center)
                                                         .lineLimit(2)
                                                     Spacer()
-                                                        .frame(width: 30)
+                                                        .frame(width: 50)
                                                     Text("Datos extras solicitados")
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(Color.white)
@@ -220,22 +222,22 @@ struct CreditoView: View {
                                                 .frame(width: 300, height: 50)
                                                 .background(Color("Blue1"))
                                                 HStack {
-                                                    Spacer()
-                                                        .frame(width: 10)
                                                     Text(otroscamposact)
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(.white)
-                                                        .padding()
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(8)
+                                                        .padding(2)
                                                     Spacer()
                                                         .frame(width: 20)
                                                     Text(otroscampossol)
                                                         .font(.system(size: 15, weight: .bold))
                                                         .foregroundColor(.white)
-                                                        .padding()
-                                                    Spacer()
-                                                        .frame(width: 10)
+                                                        .multilineTextAlignment(.center)
+                                                        .lineLimit(8)
+                                                        .padding(2)
                                                 }
-                                                .frame(width: 300, height: 30)
+                                                .frame(width: 300, height: 150)
                                                 .background(Color("Green"))
                                                 .padding(.bottom, -7)
                                                 .padding(.top, -6)
@@ -256,14 +258,12 @@ struct CreditoView: View {
                                                 .frame(width: 300, height: 30)
                                                 .background(Color("Blue1"))
                                                 HStack {
-                                                    Spacer()
-                                                        .frame(width: 10)
                                                     Text("$\(item.saldo)")
                                                         .font(.system(size: 15, weight: .regular))
                                                         .foregroundColor(.black)
                                                         .padding()
                                                     Spacer()
-                                                        .frame(width: 30)
+                                                        .frame(width: 40)
                                                     Text("$\(item.saldovencido)")
                                                         .font(.system(size: 15, weight: .regular))
                                                         .foregroundColor(.black)
@@ -282,9 +282,7 @@ struct CreditoView: View {
                                                     .font(.system(size: 15, weight: .regular))
                                                     .foregroundColor(.black)
                                                     .multilineTextAlignment(.center)
-                                                    .lineLimit(1)
-                                                    .truncationMode(.tail)
-                                                    .fixedSize(horizontal: false, vertical: true)
+                                                    .padding(.leading, 50)
                                                 HStack {
                                                     Text("Fecha de\ncaducidad")
                                                         .font(.system(size: 15, weight: .bold))
@@ -320,8 +318,8 @@ struct CreditoView: View {
                                                         .padding()
                                                         .fixedSize(horizontal: false, vertical: true)
                                                 }
-                                                .frame(width: 300, height: 40)
-                                                .padding(.top, -3)
+                                                .frame(width: 300, height: 50)
+                                                .padding(.top, -5)
                                                 /*filaTablaCred(titulo: "Solicitud", valor: "\(solicitudID)")
                                                 filaTablaCred(titulo: "Cliente", valor: cliente)
                                                 filaTablaCred(titulo: "Contrato", valor: contrato)
