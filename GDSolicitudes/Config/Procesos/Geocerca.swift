@@ -56,6 +56,9 @@ struct Geocerca: Codable, Identifiable {
     let monto: String
     //Proceso
     let procesoid: Int
+    let uuid: String
+    let emp: Int
+    let cns: Int
     enum CodingKeys: String, CodingKey {
         case solicitud = "SolicitudID"
         case prodescripcion = "ProcesoDescripcion"
@@ -101,7 +104,52 @@ struct Geocerca: Codable, Identifiable {
         case compdetalle = "CompromisoDetalle"
         case compfecha = "CompromisoFecha"
         case monto = "CompromisoValor"
-        //Proceso
+       //Proceso
         case procesoid = "ProcesoID"
+        case uuid = "New_ID"
+        case emp = "EmpresaID"
+        case cns = "Cns"
+    }
+    var nomEmp: String {
+        enum Empresa: Int {
+            case dam = 1
+            case tab = 2
+            case ven = 3
+            case mil = 4
+            case nan = 5
+            case tri = 7
+            case tda = 8
+            case gen = 12
+            case pac = 14
+            case pmil = 37
+            var siglas: String {
+                switch self {
+                case .dam: return "Damigas"
+                case .tab: return "Tabagas"
+                case .ven: return "Vendogas"
+                case .mil: return "Gas Milenium"
+                case .nan: return "Vendogas Nanchital"
+                case .tri: return "Vendogas Trinitaria"
+                case .tda: return "Transportes D'Amiano"
+                case .gen: return "Stargas"
+                case .pac: return "Vendogas del Pacifico"
+                case .pmil: return "Pacifico Milenium"
+                }
+            }
+        }
+        let idBusqueda = emp
+        return Empresa(rawValue: idBusqueda)?.siglas ?? "Desconocida"
+    }
+    var datosAux: String {
+        let info = "\(nomEmp)--\(procesoid)--\(solicitud)--\(cns)"
+        return info//.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? info
+    }
+    var urlAutorizar: URL? {
+        let urlString = "https://erpweb.intranetgd.com.mx/home/wf_ejecutarSP/\(emp)/\(procesoid)/\(solicitud)/\(cns)/\(uuid)/spDa_WfDocAutorizaSolicitudGeocercaAContratoUpd/\(autoriza)/2/-/\(datosAux)"
+        return URL(string: urlString)
+    }
+    var urlRechazar: URL? {
+        let urlString = "https://erpweb.intranetgd.com.mx/home/wf_ejecutarSP/\(emp)/\(procesoid)/\(solicitud)/\(cns)/\(uuid)/spDa_WfDocAutorizaSolicitudGeocercaAContratoUpd/\(autoriza)/3/"
+        return URL(string: urlString)
     }
 }

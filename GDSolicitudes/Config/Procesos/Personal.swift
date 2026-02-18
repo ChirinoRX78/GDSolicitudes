@@ -875,11 +875,11 @@ struct Personal: Codable, Identifiable {
         return info
     }
     var urlAutorizar: URL? {
-        let urlString = "https://erpweb.intranetgd.com.mx/home/wf_ejecutarSP/\(emp)/\(procesoid)/\(solicitud)/\(cns)/\(uuid)/spDa_WfDocAutorizaSolicitudDesbloqueoUpd/2/-/\(datosAux)"
+        let urlString = "https://erpweb.intranetgd.com.mx/home/wf_ejecutarSP/\(emp)/\(procesoid)/\(solicitud)/\(cns)/\(uuid)/spDa_WfDocAutorizaSolicitudPersonalUpd/\(autoriza)/2/-/\(datosAux)"
         return URL(string: urlString)
     }
     var urlRechazar: URL? {
-        let urlString = "https://erpweb.intranetgd.com.mx/home/wf_ejecutarSP/\(emp)/\(procesoid)/\(solicitud)/\(cns)/\(uuid)/spDa_WfDocAutorizaSolicitudDesbloqueoUpd/3/"
+        let urlString = "https://erpweb.intranetgd.com.mx/home/wf_ejecutarSP/\(emp)/\(procesoid)/\(solicitud)/\(cns)/\(uuid)/spDa_WfDocAutorizaSolicitudPersonalUpd/\(autoriza)/3/"
         return URL(string: urlString)
     }
 }
