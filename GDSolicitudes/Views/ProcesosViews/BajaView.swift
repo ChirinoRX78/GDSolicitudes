@@ -320,7 +320,7 @@ struct BajaView: View {
         otroscampos += "Puesto: [\(pueact)]" + salto
         let catact = "\(item.catact) - \(item.catdescact)"
         otroscampos += "Categoría del puesto: [\(catact)]" + salto
-        let recontratar = if item.permitir == 1 { "SI "} else { "NO" }
+        let recontratar = if item.permitir == 1 { "SI"} else { "NO" }
         otroscampos += "Permitir recontratar: [\(recontratar)]"
         return otroscampos
     }

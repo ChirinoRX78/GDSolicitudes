@@ -62,7 +62,7 @@ struct PersonalView: View {
                 }
                 .navigationBarBackButtonHidden(true)
                 .padding(10)
-                .frame(width: .infinity, height: 120, alignment: .center)
+                .frame(width: 405, height: 120, alignment: .center)
                 .background(Color("Blue1"))
                 .clipShape (
                     bordesRedondo(
@@ -333,7 +333,7 @@ struct PersonalView: View {
         if item.contcompact != item.contcompsol {
             let contcompact = if(item.contcompact == 1) { "SI" } else {"NO"}
             let contcompsol = if(item.contcompsol == 1) { "SI" } else {"NO"}
-            otroscampos += "Contratación competencia actual: [\(contcompact))] Solicitado: [\(contcompsol)]" + salto
+            otroscampos += "Contratación competencia actual: [\(contcompact)] Solicitado: [\(contcompsol)]" + salto
         }
         let famact = if(item.contcompact == 1) { "SI" } else {"NO"}
         let famsol = if(item.contcompsol == 1) { "SI" } else {"NO"}
@@ -343,7 +343,7 @@ struct PersonalView: View {
             let fechatempfin = item.fechatempfin?.date.formatearFecha()
             otroscampos += "Puesto temporal desde: \(fechatempini ?? "") Hasta: \(fechatempfin ?? "")" + salto
         } else {
-            otroscampos += "Puesto temporal N/A" + salto
+            otroscampos += "Puesto temporal: N/A" + salto
         }
         let nombreact = "\(item.nomact) \(item.apepatact) \(item.apematact)"
         let nombresol = "\(item.nomsol) \(item.apepatsol) \(item.apematsol)"

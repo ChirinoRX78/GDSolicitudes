@@ -23,7 +23,7 @@ struct LoginView: View {
     @State private var mostrarLoader = false
     var body: some View {
         ZStack {
-            NavigationView {
+            NavigationStack {
                 ZStack {
                     Color("Blue1")
                         .ignoresSafeArea()
@@ -34,7 +34,7 @@ struct LoginView: View {
                             .padding()
                         ZStack {
                             HStack(spacing: 10) {
-                                    Image(systemName: "person.fill")
+                                Image(systemName: "person.fill")
                                     .foregroundColor(.white)
                                     .font(.system(size: 35))
                                     .frame(width: 10)
@@ -112,9 +112,9 @@ struct LoginView: View {
                                 .font(.system(size: 16, weight: .semibold, design: .default))
                         }
                         .toggleStyle(estiloCajita())
-                        .onChange(of: recordarUsuario) { value in
+                        .onChange(of: recordarUsuario) { oldValue, newValue in
                             let defaults = UserDefaults.standard
-                            if value {
+                            if newValue {
                                 defaults.set(usuario, forKey: Credenciales.usuario)
                                 defaults.set(contrasena, forKey: Credenciales.contrasena)
                                 defaults.set(true, forKey: Credenciales.recordar)
@@ -135,14 +135,7 @@ struct LoginView: View {
                                 .font(.system(size: 20, weight: .semibold, design: .default))
                                 .cornerRadius(25)
                         }
-//                        .contentShape(RoundedRectangle(cornerRadius: 10))
-                        NavigationLink(
-                            destination: HomeView(usuario: usuario),
-                            isActive: $mostrarHome
-                        ) {
-                            EmptyView()
-                        }
-                        VStack (spacing: 15){
+                        VStack (spacing: 10){
                             Text("© Grupo D'Amiano 2026")
                                 .font(.system(size: 16, design: .default))
                                 .foregroundColor(.white)
@@ -152,10 +145,13 @@ struct LoginView: View {
                                     .foregroundColor(.white)
                             }
                         }
-                        .padding(.top, -25)
+                        .padding(.top, -5)
                         Spacer()
                             .frame(height: 50)
                     }
+                }
+                .navigationDestination(isPresented: $mostrarHome){
+                    HomeView(usuario: usuario)
                 }
             }
             .navigationBarHidden(true)

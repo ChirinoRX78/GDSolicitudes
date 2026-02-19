@@ -67,7 +67,7 @@ struct HomeView: View {
                             }
                         }
                         .padding(10)
-                        .frame(width: .infinity, height: 120, alignment: .center)
+                        .frame(width: 405, height: 120, alignment: .center)
                         .background(Color("Blue1"))
                         .clipShape (
                             bordesRedondo(
