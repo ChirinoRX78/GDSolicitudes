@@ -93,7 +93,7 @@ struct GeocercaView: View {
                                             if !detalle.isEmpty {
                                                 Text(detalle)
                                                     .font(.system(size: 16, weight: .bold))
-                                                    .foregroundColor(Color("Red"))
+                                                    .foregroundColor(Color("Red1"))
                                             }
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
@@ -228,7 +228,7 @@ struct GeocercaView: View {
                                                 }
                                                 .multilineTextAlignment(.center)
                                                 .frame(width: 300, height: 50)
-                                                .background(Color("Green"))
+                                                .background(Color("Green1"))
                                                 .padding(.bottom, -7)
                                                 .padding(.top, -6)
                                                 Text("Rango de fechas")
@@ -242,7 +242,7 @@ struct GeocercaView: View {
                                                     .multilineTextAlignment(.center)
                                                     .foregroundColor(.white)
                                                     .frame(width: 300, height: 50)
-                                                    .background(Color("Green"))
+                                                    .background(Color("Green1"))
                                                     .padding(.bottom, -7)
                                                     .padding(.top, -6)
                                                 Text("Bloquear con geocerca")
@@ -386,7 +386,7 @@ struct GeocercaView: View {
                                             }
                                             //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
                                         } label: {
-                                            boton(texto: "Autorizar", color: Color("Green"))
+                                            boton(texto: "Autorizar", color: Color("Green1"))
                                         }
                                         Button {
                                             if let url = item.urlRechazar {
@@ -394,7 +394,7 @@ struct GeocercaView: View {
                                             }
                                             //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
                                         } label: {
-                                            boton(texto: "Rechazar", color: Color("Red"))
+                                            boton(texto: "Rechazar", color: Color("Red1"))
                                         }
                                     }
                                 }
@@ -522,7 +522,7 @@ struct filaTablaGeo: View {
     let titulo: String
     let valor: String
     var clave: Bool = false
-    var claveColor: Color = Color("Green")
+    var claveColor: Color = Color("Green1")
     var claveAncho: Bool = false
     var body: some View {
         HStack(alignment: .top, spacing: 0) {

@@ -166,7 +166,7 @@ struct PrecioView: View {
                                                         .lineLimit(2)
                                                 }
                                                 .frame(width: 300, height: 50)
-                                                .background(Color("Green"))
+                                                .background(Color("Green1"))
                                                 .padding(.bottom, -7)
                                                 .padding(.top, -6)
                                                 HStack {
@@ -313,7 +313,7 @@ struct PrecioView: View {
                                             }
                                             //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
                                         } label: {
-                                            boton(texto: "Autorizar", color: Color("Green"))
+                                            boton(texto: "Autorizar", color: Color("Green1"))
                                         }
                                         Button {
                                             if let url = item.urlRechazar {
@@ -321,7 +321,7 @@ struct PrecioView: View {
                                             }
                                             //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
                                         } label: {
-                                            boton(texto: "Rechazar", color: Color("Red"))
+                                            boton(texto: "Rechazar", color: Color("Red1"))
                                         }
                                     }
                                 }
@@ -433,7 +433,7 @@ struct filaTablaPre: View {
     let titulo: String
     let valor: String
     var clave: Bool = false
-    var claveColor: Color = Color("Green")
+    var claveColor: Color = Color("Green1")
     var claveAncho: Bool = false
     var body: some View {
         HStack(alignment: .top, spacing: 0) {

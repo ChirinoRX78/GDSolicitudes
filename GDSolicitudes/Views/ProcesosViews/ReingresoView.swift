@@ -93,7 +93,7 @@ struct ReingresoView: View {
                                             if !detalle.isEmpty {
                                                 Text(detalle)
                                                     .font(.system(size: 16, weight: .bold))
-                                                    .foregroundColor(Color("Red"))
+                                                    .foregroundColor(Color("Red1"))
                                             }
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
@@ -202,52 +202,31 @@ struct ReingresoView: View {
                                 }
                                 //MARK: Botones
                                 HStack(spacing: 20) {
-                                    ForEach(datos) { item in
-                                        Button {
-                                            if let url = item.urlAutorizar {
-                                                print("URL FINAL:", url.absoluteString)
-                                            }
-                                            //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
-                                        } label: {
-                                            boton(texto: "Autorizar", color: Color("Green"))
-                                        }
-                                        Button {
-                                            if let url = item.urlRechazar {
-                                                print("URL FINAL:", url.absoluteString)
-                                            }
-                                            //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
-                                        } label: {
-                                            boton(texto: "Rechazar", color: Color("Red"))
-                                        }
+                                    Button(action: {
+                                        print("Autorizar")
+                                    }) {
+                                        Text("Autorizar")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(.white)
+                                            .frame(width: 130, height: 45)
+                                            .background(Color("Green1"))
+                                            .cornerRadius(25)
+                                    }
+                                    Button(action: {
+                                        print("Rechazar")
+                                    }) {
+                                        Text("Rechazar")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(.white)
+                                            .frame(width: 130, height: 45)
+                                            .background(Color("Red1"))
+                                            .cornerRadius(25)
                                     }
                                 }
                                 .padding(.top, 10)
                                 .padding(.bottom, 10)
-                                if cargando {
-                                    LoaderProcesoView()
-                                        .ignoresSafeArea()
-                                        .transition(.opacity)
-                                        .zIndex(999)
-                                }
                             }
                         }
-                        .alert("Confirmación", isPresented: $confirmarAccion) {
-                                    Button("Aceptar", role: .destructive) {
-                                        if let url = urlSeleccionada {
-                                            ejecutar(url: url)
-                                        }
-                                    }
-                                    Button("Cancelar", role: .cancel) {
-                                    }
-                                } message: {
-                                    Text("¿Deseas \(accionTexto) la solicitud?")
-                                }
-                                // Resultado
-                                .alert("Resultado", isPresented: $mostrarAlerta) {
-                                    Button("Aceptar", role: .cancel) {}
-                                } message: {
-                                    Text(mensajeAlerta)
-                                }
                     }
                     .padding(.top, 10)
                 }
@@ -377,7 +356,7 @@ struct filaTablaReingreso: View {
     let titulo: String
     let valor: String
     var clave: Bool = false
-    var claveColor: Color = Color("Green")
+    var claveColor: Color = Color("Green1")
     var claveAncho: Bool = false
     var body: some View {
         HStack(alignment: .top, spacing: 0) {

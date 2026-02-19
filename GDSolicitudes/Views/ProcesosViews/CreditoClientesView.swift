@@ -165,7 +165,7 @@ struct CreditoClientesView: View {
                                                         .frame(width: 10)
                                                 }
                                                 .frame(width: 300, height: 30)
-                                                .background(Color("Green"))
+                                                .background(Color("Green1"))
                                                 .padding(.bottom, -7)
                                                 .padding(.top, -6)
                                                 HStack {
@@ -314,7 +314,7 @@ struct CreditoClientesView: View {
                                             }
                                             //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
                                         } label: {
-                                            boton(texto: "Autorizar", color: Color("Green"))
+                                            boton(texto: "Autorizar", color: Color("Green1"))
                                         }
                                         Button {
                                             if let url = item.urlRechazar {
@@ -322,7 +322,7 @@ struct CreditoClientesView: View {
                                             }
                                             //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
                                         } label: {
-                                            boton(texto: "Rechazar", color: Color("Red"))
+                                            boton(texto: "Rechazar", color: Color("Red1"))
                                         }
                                     }
                                 }
@@ -434,7 +434,7 @@ struct filaTablaCredCli: View {
     let titulo: String
     let valor: String
     var clave: Bool = false
-    var claveColor: Color = Color("Green")
+    var claveColor: Color = Color("Green1")
     var claveAncho: Bool = false
     var body: some View {
         HStack(alignment: .top, spacing: 0) {

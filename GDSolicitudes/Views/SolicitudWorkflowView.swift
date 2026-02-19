@@ -63,7 +63,7 @@ struct SolicitudWorkflowView: View {
                                         .font(.system(size: 16, weight: .semibold))
                                         .foregroundColor(.white)
                                         .frame(width: 130, height: 45)
-                                        .background(Color("Green"))
+                                        .background(Color("Green1"))
                                         .cornerRadius(25)
                                 }
                                 Button(action: {
@@ -73,7 +73,7 @@ struct SolicitudWorkflowView: View {
                                         .font(.system(size: 16, weight: .semibold))
                                         .foregroundColor(.white)
                                         .frame(width: 130, height: 45)
-                                        .background(Color("Red"))
+                                        .background(Color("Red1"))
                                         .cornerRadius(25)
                                 }
                             }
