@@ -201,7 +201,7 @@ struct SalarioView: View {
                                             if let url = item.urlAutorizar {
                                                 print("URL FINAL:", url.absoluteString)
                                             }
-                                            //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                            prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
                                         } label: {
                                             boton(texto: "Autorizar", color: Color("Green1"))
                                         }
@@ -209,7 +209,7 @@ struct SalarioView: View {
                                             if let url = item.urlRechazar {
                                                 print("URL FINAL:", url.absoluteString)
                                             }
-                                            //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                            prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
                                         } label: {
                                             boton(texto: "Rechazar", color: Color("Red1"))
                                         }
@@ -324,14 +324,11 @@ struct SalarioView: View {
         let salto = "\n\n"
         var otroscampos = "Colaborador: \(item.perid) - \(item.nom)" + salto
         let areaact = "\(item.areaact) - \(item.areadescact)"
-        let areasol = "\(item.areasol) - \(item.areadescsol)"
-        otroscampos += "Área actual [\(areaact)] Solicitado [\(areasol)]" + salto
+        otroscampos += "Área actual: [\(areaact)]" + salto
         let pueact = "\(item.pueact) - \(item.puedescact)"
-        let puesol = "\(item.puesol) - \(item.puedescsol)"
-        otroscampos += "Puesto actual [\(pueact)] Solicitado [\(puesol)]" + salto
+        otroscampos += "Puesto actual: [\(pueact)]" + salto
         let catact = "\(item.catact) - \(item.catdescact)"
-        let catsol = "\(item.catsol) - \(item.catdescsol)"
-        otroscampos += "Categoría del puesto actual [\(catact)] Solicitado [\(catsol)]" + salto
+        otroscampos += "Categoría del puesto: [\(catact)]" + salto
         if item.suediaimact != item.suediaimsol {
             otroscampos += "Sueldo diario IMSS actual [$\(item.suediaimact)] Solicitado [$\(item.suediaimsol)]" + salto
         }

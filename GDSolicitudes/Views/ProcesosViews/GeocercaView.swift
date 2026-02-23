@@ -384,7 +384,7 @@ struct GeocercaView: View {
                                             if let url = item.urlAutorizar {
                                                 print("URL FINAL:", url.absoluteString)
                                             }
-                                            //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                            prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
                                         } label: {
                                             boton(texto: "Autorizar", color: Color("Green1"))
                                         }
@@ -392,7 +392,7 @@ struct GeocercaView: View {
                                             if let url = item.urlRechazar {
                                                 print("URL FINAL:", url.absoluteString)
                                             }
-                                            //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                            prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
                                         } label: {
                                             boton(texto: "Rechazar", color: Color("Red1"))
                                         }

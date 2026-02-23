@@ -62,7 +62,7 @@ struct PuestoView: View {
                 }
                 .navigationBarBackButtonHidden(true)
                 .padding(10)
-                .frame(width: 405, height: 120, alignment: .center)
+                .frame(width: .infinity, height: 120, alignment: .center)
                 .background(Color("Blue1"))
                 .clipShape (
                     bordesRedondo(
@@ -93,7 +93,7 @@ struct PuestoView: View {
                                             if !detalle.isEmpty {
                                                 Text(detalle)
                                                     .font(.system(size: 16, weight: .bold))
-                                                    .foregroundColor(Color())
+                                                    .foregroundColor(Color("Red1"))
                                                     .padding(.bottom, 10)
                                             }
                                             //MARK: Detalles generales

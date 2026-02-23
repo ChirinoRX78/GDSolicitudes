@@ -17,18 +17,12 @@ struct Salarios: Codable, Identifiable {
     //Detalles RH
     let nom: String
     let perid: Int
-    let areaact: String
-    let areasol: String
+    let areaact: Int
     let areadescact: String
-    let areadescsol: String
-    let pueact: Int
-    let puesol: Int
+    let pueact: String
     let puedescact: String
-    let puedescsol: String
     let catact: String
-    let catsol: String
     let catdescact: String
-    let catdescsol: String
     let suediaimact: String
     let suediaimsol: String
     let suediarealact: String
@@ -67,18 +61,12 @@ struct Salarios: Codable, Identifiable {
         //Detalles RH
         case nom = "Nombres"
         case perid = "PersonalID"
-        case areaact = "AreaActual"
-        case areasol = "AreaDescripcionActual"
-        case areadescact = "AreaSolicitado"
-        case areadescsol = "AreaDescripcionSolicitado"
-        case pueact = "PuestoActual"
-        case puesol = "PuestoDescripcionActual"
-        case puedescact = "PuestoSolicitado"
-        case puedescsol = "PuestoDescripcionSolicitado"
-        case catact = "CategoriaDelPersonalIDActual"
-        case catsol = "CategoriaDelPersonalIDDescripcionActual"
-        case catdescact = "CategoriaDelPersonalIDSolicitado"
-        case catdescsol = "CategoriaDelPersonalIDDescripcionSolicitado"
+        case areaact = "Area"
+        case areadescact = "AreaDescripcion"
+        case pueact = "Puesto"
+        case puedescact = "PuestoDescripcion"
+        case catact = "CategoriaDelPersonalID"
+        case catdescact = "CategoriaDelPersonalIDDescripcion"
         case suediaimact = "SueldoDiarioIMSSActual"
         case suediaimsol = "SueldoDiarioIMSSSolicitado"
         case suediarealact = "SueldoDiarioRealActual"

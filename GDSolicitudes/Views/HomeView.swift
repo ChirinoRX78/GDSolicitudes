@@ -67,7 +67,7 @@ struct HomeView: View {
                             }
                         }
                         .padding(10)
-                        .frame(width: 405, height: 120, alignment: .center)
+                        .frame(width: 405, height: 150, alignment: .center)
                         .background(Color("Blue1"))
                         .clipShape (
                             bordesRedondo(
@@ -145,7 +145,7 @@ struct HomeView: View {
                             .background(Color.white)
                             .cornerRadius(20)
                             .shadow(radius: 6)
-                            .offset(y: 100)
+                            .offset(y: 110)
                         
                     }
                     Spacer()

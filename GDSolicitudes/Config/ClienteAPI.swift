@@ -32,9 +32,9 @@ class ClienteAPI {
                 completion(.failure(NSError()))
                 return
             }
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON:")
-            print(raw)
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+            //print("JSON:")
+            //print(raw)
             do {
                 let response = try JSONDecoder().decode(RespuestaAPI.self, from: data)
                 completion(.success(response))
@@ -67,8 +67,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Desbloqueo RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+            //print("JSON Desbloqueo RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaDescuento.self, from: data)
                 DispatchQueue.main.async {
@@ -104,8 +104,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Desbloqueo RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+            //print("JSON Desbloqueo RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaCredito.self, from: data)
                 DispatchQueue.main.async {
@@ -141,8 +141,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Desbloqueo RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Desbloqueo RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaPrecio.self, from: data)
                 DispatchQueue.main.async {
@@ -178,8 +178,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Desbloqueo RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Desbloqueo RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaDesbloqueo.self, from: data)
                 DispatchQueue.main.async {
@@ -215,8 +215,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Desbloqueo RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Desbloqueo RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaGeocerca.self, from: data)
                 DispatchQueue.main.async {
@@ -252,8 +252,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaContrato.self, from: data)
                 DispatchQueue.main.async {
@@ -289,8 +289,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaRuta.self, from: data)
                 DispatchQueue.main.async {
@@ -326,8 +326,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaCreditoClientes.self, from: data)
                 DispatchQueue.main.async {
@@ -363,8 +363,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaPlantilla.self, from: data)
                 DispatchQueue.main.async {
@@ -400,8 +400,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaPersonal.self, from: data)
                 DispatchQueue.main.async {
@@ -437,8 +437,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaPuesto.self, from: data)
                 DispatchQueue.main.async {
@@ -474,8 +474,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaSalario.self, from: data)
                 DispatchQueue.main.async {
@@ -511,8 +511,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Contrato RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Contrato RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaReingreso.self, from: data)
                 DispatchQueue.main.async {
@@ -548,8 +548,8 @@ class ClienteAPI {
                 return
             }
             // DEBUG
-            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
-            print("JSON Bajas RAW:\n\(raw)")
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
             do {
                 let decoded = try JSONDecoder().decode(RespuestaBaja.self, from: data)
                 DispatchQueue.main.async {

@@ -98,7 +98,6 @@ struct PersonalView: View {
                                             //MARK: Detalles generales
                                             VStack(alignment: .leading, spacing: 6) {
                                                 let feccad = item.fechacad.date.formatearFecha()
-                                                //filaTablaPlantilla(titulo: "Solicitud", valor: "\(solicitudID)")
                                                 Text("Solicitud")
                                                     .font(.system(size: 15, weight: .bold))
                                                     .foregroundColor(Color.white)
@@ -156,8 +155,6 @@ struct PersonalView: View {
                                                 }
                                                 .frame(width: 300, height: 40)
                                                 .padding(.top, -3)
-                                                /*filaTablaPlantilla(titulo: "Fecha caducidad", valor: feccad)
-                                                filaTablaPlantilla(titulo: "Solicitante", valor: "\(item.solicitante)")*/
                                             }
                                             .padding(16)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -195,7 +192,7 @@ struct PersonalView: View {
                                             if let url = item.urlAutorizar {
                                                 print("URL FINAL:", url.absoluteString)
                                             }
-                                            //prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
+                                            prepararConfirmacion(url: item.urlAutorizar, accion: "Autorizar")
                                         } label: {
                                             boton(texto: "Autorizar", color: Color("Green1"))
                                         }
@@ -203,7 +200,7 @@ struct PersonalView: View {
                                             if let url = item.urlRechazar {
                                                 print("URL FINAL:", url.absoluteString)
                                             }
-                                            //prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
+                                            prepararConfirmacion(url: item.urlRechazar, accion: "Rechazar")
                                         } label: {
                                             boton(texto: "Rechazar", color: Color("Red1"))
                                         }

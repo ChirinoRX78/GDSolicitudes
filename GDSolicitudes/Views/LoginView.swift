@@ -156,7 +156,6 @@ struct LoginView: View {
             }
             .navigationBarHidden(true)
             .preferredColorScheme(.dark)
-            .ignoresSafeArea(.keyboard, edges: .bottom)
             .zIndex(0)
             if mostrarLoader {
                 LoaderLoginView()
@@ -172,6 +171,7 @@ struct LoginView: View {
                 dismissButton: .default(Text("Aceptar"))
             )
         }
+        .ignoresSafeArea(.keyboard)
         .onAppear {
             let defaults = UserDefaults.standard
             recordarUsuario = defaults.bool(forKey: Credenciales.recordar)
