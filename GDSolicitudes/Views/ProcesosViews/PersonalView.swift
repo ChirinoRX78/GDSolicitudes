@@ -256,8 +256,20 @@ struct PersonalView: View {
             switch result {
             case .success(let arr):
                 self.datos = arr.data
+                cargarArchivo()
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
+            }
+        }
+    }
+    func cargarArchivo() {
+        ClienteAPI.obtenerArchivo(solicitud: solicitudID) { result in 
+            switch result {
+                case .success(let response):
+                    self.archivo = repsonse.data
+                    print("Archivos encontrados:", response.data.count)
+                case .failure(let error):
+                    print("Error:", error.localizedDescription)
             }
         }
     }

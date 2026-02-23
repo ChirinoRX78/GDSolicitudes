@@ -563,4 +563,38 @@ class ClienteAPI {
             }
         }.resume()
     }
+    //MARK: Archivos solicitudes
+    static func obtenerArchivo(
+        solicitud: Int,
+        completion: @escaping (Result<RespuestaArchivo, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://wwww.ti.intranetgd.com.mx/getInfo/datosArchivo"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "solicitud", value: String(solicitud))
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaArchivo.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando archivo:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
 }
