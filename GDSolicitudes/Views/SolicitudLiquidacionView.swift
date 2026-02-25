@@ -98,7 +98,8 @@ struct SolicitudLiquidacionView: View {
                 }
                 .navigationBarBackButtonHidden(true)
                 .padding(10)
-                .frame(width: .infinity, height: 120, alignment: .center)
+                .frame(maxWidth: .infinity)
+                .frame(height: 120, alignment: .center)
                 .background(Color("Blue1"))
                 .clipShape (
                     bordesRedondo(

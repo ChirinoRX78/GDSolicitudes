@@ -14,6 +14,10 @@ struct PersonalView: View {
     @State private var cargando = true
     @State private var errorMsg: String? = nil
     @State private var datos: [Personal] = []
+    //Archivos
+    @State private var archivos: [Archivo] = []
+    @State private var tieneArchivos = false
+    @State private var cargandoArchivos = false
     @State private var mostrandoLoader = false
     @State private var mostrarAlerta = false
     @State private var mensajeAlerta = ""
@@ -49,20 +53,32 @@ struct PersonalView: View {
                         .foregroundColor(.white)
                         .padding(.leading, 20)
                     Spacer()
-                    Button(action: {
-                        //
-                    }) {
-                        Image(systemName: "paperclip")
-                            .foregroundColor(.white)
-                            .padding(.leading, 30)
-                            .font(.system(size: 20, weight: .bold))
+                    Group {
+                        if tieneArchivos {
+                            if cargandoArchivos {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .frame(width: 30, height: 30)
+                            } else if tieneArchivos {
+                                Button(action: {
+                                    //mostrarArchivos = true
+                                }) {
+                                    Image(systemName: "paperclip")
+                                        .foregroundColor(.white)
+                                        .padding(.leading, 30)
+                                        .font(.system(size: 20, weight: .bold))
+                                }
+                            }
+                        }
                     }
+                    .frame(width: 40, height: 40)
                     Spacer()
                         .frame(width: 40)
                 }
                 .navigationBarBackButtonHidden(true)
                 .padding(10)
-                .frame(width: 405, height: 120, alignment: .center)
+                .frame(maxWidth: .infinity)
+                .frame(height: 120, alignment: .center)
                 .background(Color("Blue1"))
                 .clipShape (
                     bordesRedondo(
@@ -104,10 +120,13 @@ struct PersonalView: View {
                                                     .padding()
                                                     .frame(width: 300, height: 30)
                                                     .background(Color("Blue1"))
+                                                    .padding(.bottom, -6)
                                                 Text(verbatim: "\(solicitudID)")
                                                     .font(.system(size: 15, weight: .regular))
                                                     .foregroundColor(.black)
-                                                    .padding(.leading, 125)
+                                                    .multilineTextAlignment(.center)
+                                                    .frame(width: 300, height: 30)
+                                                    .background(Color("WhiteBG"))
                                                 Text("Datos Actuales/Solicitados")
                                                     .font(.system(size: 15, weight: .bold))
                                                     .foregroundColor(Color.white)
@@ -132,29 +151,21 @@ struct PersonalView: View {
                                                 }
                                                 .frame(width: 300, height: 50)
                                                 .background(Color("Blue1"))
-                                                HStack {
-                                                    Spacer()
-                                                        .frame(width: 30)
+                                                .padding(.top, -6)
+                                                HStack(spacing: 0) {
                                                     Text(feccad)
-                                                        .font(.system(size: 15, weight: .regular))
+                                                        .font(.system(size: 15))
                                                         .foregroundColor(.black)
-                                                        .multilineTextAlignment(.center)
-                                                        .lineLimit(1)
-                                                        .truncationMode(.tail)
-                                                        .fixedSize(horizontal: false, vertical: true)
-                                                    Spacer()
-                                                        .frame(width: 20)
+                                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                        .background(Color("WhiteBG"))
                                                     Text("\(item.solicitante)")
-                                                        .font(.system(size: 15, weight: .regular))
+                                                        .font(.system(size: 15))
                                                         .foregroundColor(.black)
-                                                        .multilineTextAlignment(.center)
-                                                        .lineLimit(2)
-                                                        .truncationMode(.tail)
-                                                        .padding()
-                                                        .fixedSize(horizontal: false, vertical: true)
+                                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                        .background(Color("WhiteBG"))
                                                 }
-                                                .frame(width: 300, height: 40)
-                                                .padding(.top, -3)
+                                                .frame(width: 300, height: 50)
+                                                .padding(.top, -5)
                                             }
                                             .padding(16)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -256,20 +267,27 @@ struct PersonalView: View {
             switch result {
             case .success(let arr):
                 self.datos = arr.data
-                cargarArchivo()
+                cargarArchivos()
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
         }
     }
-    func cargarArchivo() {
-        ClienteAPI.obtenerArchivo(solicitud: solicitudID) { result in 
-            switch result {
+    private func cargarArchivos() {
+        cargandoArchivos = true
+        ClienteAPI.obtenerArchivo(solicitud: solicitudID) { result in
+            DispatchQueue.main.async {
+                cargandoArchivos = false
+                switch result {
                 case .success(let response):
-                    self.archivo = repsonse.data
+                    self.archivos = response.data
+                    self.tieneArchivos = !response.data.isEmpty
                     print("Archivos encontrados:", response.data.count)
+//                    print("Nombre de archivo: ", response.data)
                 case .failure(let error):
-                    print("Error:", error.localizedDescription)
+                    print("Error:",error.localizedDescription)
+                    self.tieneArchivos = false
+                }
             }
         }
     }

@@ -34,6 +34,12 @@ struct HomeView: View {
             ZStack {
                 Color("WhiteBG")
                     .ignoresSafeArea()
+                Image("logoti3")
+                    .resizable()
+                    .frame(width: 330, height: 400)
+                    .opacity(0.05)
+                    .ignoresSafeArea()
+                    .padding(.top, 200)
                 VStack(spacing: 0) {
                     ZStack(alignment: .top) {
                         GeometryReader { geo in
@@ -67,7 +73,8 @@ struct HomeView: View {
                             }
                         }
                         .padding(10)
-                        .frame(width: 405, height: 150, alignment: .center)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 120, alignment: .center)
                         .background(Color("Blue1"))
                         .clipShape (
                             bordesRedondo(
@@ -250,7 +257,7 @@ struct cartaLiquidacion: View {
                     .transition(.opacity)
             } else {
                 ScrollView {
-                    ForEach(liquidacion) { liq in
+                    ForEach(liquidacion, id: \.folio) { liq in
                         NavigationLink {
                             SolicitudLiquidacionView(liq: liq)
                         } label: {

@@ -569,7 +569,7 @@ class ClienteAPI {
         completion: @escaping (Result<RespuestaArchivo, Error>) -> Void
     ) {
         var components = URLComponents(
-            string: "https://wwww.ti.intranetgd.com.mx/getInfo/datosArchivo"
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosArchivo"
         )
         components?.queryItems = [
             URLQueryItem(name: "solicitud", value: String(solicitud))

@@ -39,7 +39,8 @@ struct SettingsView: View {
                 }
                 .navigationBarBackButtonHidden(true)
                 .padding(10)
-                .frame(width: .infinity, height: 120, alignment: .center)
+                .frame(maxWidth: .infinity)
+                .frame(height: 120, alignment: .center)
                 .background(Color("Blue1"))
                 .clipShape (
                     bordesRedondo(
@@ -49,7 +50,7 @@ struct SettingsView: View {
                 //MARK: Carta con información:
                 VStack(spacing: 20) {
                     ZStack(alignment: .leading) {
-                        Image(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90")
+                        Image(systemName: "timer.circle.fill")
                             .foregroundColor(Color("Blue1"))
                             .font(.system(size: 25, weight: .bold))
                             .padding(.trailing, 300)
@@ -89,6 +90,12 @@ struct SettingsView: View {
                                 .padding(.leading, 230)
                         }
                     }
+                    Image("logoti3")
+                        .resizable()
+                        .frame(width: 330, height: 400)
+                        .opacity(0.05)
+                        .ignoresSafeArea()
+                        .padding(.top, 50)
                 }
                 .padding()
                 .frame(width: 380, height: 760, alignment: .top)
