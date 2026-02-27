@@ -17,7 +17,7 @@ struct CreditoView: View {
     //Archivos
     @State private var archivos: [Archivo] = []
     @State private var tieneArchivos = false
-    @State private var cargandoArchivos = false
+    @State private var cargandoArchivos = true
     @State private var mostrarArchivos = false
     @State private var mostrandoLoader = false
     @State private var mostrarAlerta = false
@@ -55,24 +55,26 @@ struct CreditoView: View {
                         .padding(.leading, 20)
                     Spacer()
                     Group {
-                        if tieneArchivos {
-                            if cargandoArchivos {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                                    .frame(width: 30, height: 30)
-                            } else if tieneArchivos {
-                                Button(action: {
-                                    mostrarArchivos = true
-                                }) {
-                                    Image(systemName: "paperclip")
-                                        .foregroundColor(.white)
-                                        .padding(.leading, 30)
-                                        .font(.system(size: 20, weight: .bold))
-                                }
+                        // Si está cargando, mostramos la animación de carga sin importar 'tieneArchivos'
+                        if cargandoArchivos {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .frame(width: 30, height: 30)
+                                .padding(.leading, 30)
+                        }
+                        // Si NO está cargando, pero sabemos que SÍ hay archivos, mostramos el clip
+                        else if tieneArchivos {
+                            Button(action: {
+                                mostrarArchivos = true
+                            }) {
+                                Image(systemName: "paperclip")
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 30)
+                                    .font(.system(size: 20, weight: .bold))
                             }
                         }
                     }
-                    .frame(width: 40, height: 40)
+                    //.frame(width: 40, height: 40)
                     Spacer()
                         .frame(width: 40)
                 }

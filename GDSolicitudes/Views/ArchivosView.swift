@@ -34,8 +34,30 @@ struct ArchivosView: View {
                     }
                 }
             }
+            .padding(.top, -20)
             .navigationTitle("Archivos adjuntos")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "xmark.circle.fill")
+                        }
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color("Blue1"))
+                        .padding(.top, 10)
+                        .padding(.trailing, 20)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    Text("Archivos adjuntos")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(Color("Blue1"))
+                        .padding(.top, 10)
+                }
+            }
             /*.sheet(isPresented: $mostrarPreview) {
                 if let url = archivoURL {
                     PreviewController(url: url)
