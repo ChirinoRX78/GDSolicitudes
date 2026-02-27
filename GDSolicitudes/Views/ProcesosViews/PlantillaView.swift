@@ -304,7 +304,7 @@ struct PlantillaView: View {
             switch result {
             case .success(let arr):
                 self.datos = arr.data
-                cargandoArchivos()
+                cargarArchivos()
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }

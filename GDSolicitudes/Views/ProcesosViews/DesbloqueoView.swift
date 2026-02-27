@@ -53,6 +53,7 @@ struct DesbloqueoView: View {
                         .font(.system(size: 20, weight: .semibold, design: .default))
                         .foregroundColor(.white)
                         .padding(.leading, 20)
+                    Spacer()
                     Group {
                         if tieneArchivos {
                             if cargandoArchivos {
