@@ -406,6 +406,10 @@ struct DescuentoView: View {
             .onAppear {
                 cargar()
             }
+            .sheet(isPresented: $mostrarArchivos) {
+                ArchivosView(archivos: archivos)
+                    .presentationDetents([.medium, .large])
+            }
         }
     }
     private func cargar() {
