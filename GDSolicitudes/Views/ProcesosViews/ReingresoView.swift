@@ -118,6 +118,7 @@ struct ReingresoView: View {
                                                     .padding()
                                                     .frame(width: 300, height: 30)
                                                     .background(Color("Blue1"))
+                                                    .padding(.top, -6)
                                                 Text(otrosCampos(item))
                                                     .font(.system(size: 15, weight: .regular))
                                                     .foregroundColor(.black)
@@ -347,9 +348,9 @@ struct ReingresoView: View {
         if item.temp == 1 {
             let fechatempini = item.fechatempini?.date.formatearFecha() ?? ""
             let fechatempfin = item.fechatempfin?.date.formatearFecha() ?? ""
-            otroscampos += "Puesto temporal desde: \(fechatempini) Hasta: \(fechatempfin)" + salto
+            otroscampos += "Puesto temporal desde: \(fechatempini) Hasta: \(fechatempfin)"
         } else {
-            otroscampos += "Puesto Temporal: N/A" + salto
+            otroscampos += "Puesto Temporal: N/A"
         }
         return otroscampos
     }

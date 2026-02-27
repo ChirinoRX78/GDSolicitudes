@@ -14,6 +14,11 @@ struct CreditoView: View {
     @State private var cargando = true
     @State private var errorMsg: String? = nil
     @State private var datos: [Credito] = []
+    //Archivos
+    @State private var archivos: [Archivo] = []
+    @State private var tieneArchivos = false
+    @State private var cargandoArchivos = false
+    @State private var mostrarArchivos = false
     @State private var mostrandoLoader = false
     @State private var mostrarAlerta = false
     @State private var mensajeAlerta = ""
@@ -49,14 +54,25 @@ struct CreditoView: View {
                         .foregroundColor(.white)
                         .padding(.leading, 20)
                     Spacer()
-                    Button(action: {
-                        //
-                    }) {
-                        Image(systemName: "paperclip")
-                            .foregroundColor(.white)
-                            .padding(.leading, 30)
-                            .font(.system(size: 20, weight: .bold))
+                    Group {
+                        if tieneArchivos {
+                            if cargandoArchivos {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .frame(width: 30, height: 30)
+                            } else if tieneArchivos {
+                                Button(action: {
+                                    mostrarArchivos = true
+                                }) {
+                                    Image(systemName: "paperclip")
+                                        .foregroundColor(.white)
+                                        .padding(.leading, 30)
+                                        .font(.system(size: 20, weight: .bold))
+                                }
+                            }
+                        }
                     }
+                    .frame(width: 40, height: 40)
                     Spacer()
                         .frame(width: 40)
                 }
@@ -430,6 +446,10 @@ struct CreditoView: View {
             .onAppear {
                 cargar()
             }
+            .sheet(isPresented: $mostrarArchivos) {
+                ArchivosView(archivos: archivos)
+                    .presentationDetents([.medium, .large])
+            }
         }
     }
     private func cargar() {
@@ -440,8 +460,27 @@ struct CreditoView: View {
             switch result {
             case .success(let arr):
                 self.datos = arr.data
+                cargarArchivos()
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
+            }
+        }
+    }
+    private func cargarArchivos() {
+        cargandoArchivos = true
+        ClienteAPI.obtenerArchivo(solicitud: solicitudID) { result in
+            DispatchQueue.main.async {
+                cargandoArchivos = false
+                switch result {
+                case .success(let response):
+                    self.archivos = response.data
+                    self.tieneArchivos = !response.data.isEmpty
+                    print("Archivos encontrados:", response.data.count)
+//                    print("Nombre de archivo: ", response.data)
+                case .failure(let error):
+                    print("Error:",error.localizedDescription)
+                    self.tieneArchivos = false
+                }
             }
         }
     }

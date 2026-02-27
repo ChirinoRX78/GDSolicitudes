@@ -180,7 +180,6 @@ struct LoginView: View {
                 contrasena = defaults.string(forKey: Credenciales.contrasena) ?? ""
             }
         }
-        
     }
     //MARK: Conexión con servicio SOAP para inicio de sesión
     func autenticar(){

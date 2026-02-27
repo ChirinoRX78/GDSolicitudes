@@ -32,8 +32,8 @@ struct Plantilla: Codable, Identifiable {
     let puestodescsol: String
     let puestodescactlarga: String
     let puestodescsollarga: String
-    let areact: String
-    let aresol: String
+    let areact: Int
+    let aresol: Int
     let areadescact: String
     let areadescsol: String
     let puestopadreact: Int
@@ -142,8 +142,8 @@ struct Plantilla: Codable, Identifiable {
         case riesgodescsol = "RiesgoPuestoDescripcionSolicitado"
         case puestoimact = "PuestoIdIMSSActual"
         case puestoimsol = "PuestoIdIMSSSolicitado"
-        case puestoimmdescact = "PuestoIdIMSSDescripcionActual"
-        case puestoimmdescsol = "PuestoIdIMSSDescripcionSolicitado"
+        case puestoimmdescact = "PuestoIMSSDescripcionActual"
+        case puestoimmdescsol = "PuestoIMSSDescripcionSolicitado"
         case cattipodescact = "CategoriaTiposDePersonalActual"
         case cattipodescsol = "CategoriaTiposDePersonalSolicitado"
         case cattipodescdescact = "CategoriaTiposDePersonalDescripcionActual"

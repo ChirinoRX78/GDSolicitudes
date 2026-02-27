@@ -340,14 +340,14 @@ struct PersonalView: View {
         }.resume()
     }
     func detalleAdicional(_ item: Personal) -> String {
-        if (item.nuevo == 1) {
-            "Alta de personal"
-        } else if (item.soltemp == 1) {
+        if (item.nuevo == 1 && item.soltemp == 1) {
             "Alta de personal, con puesto temporal"
-        } else if (item.famempsol == 1) {
+        } else if (item.nuevo == 1 && item.famempsol == 1) {
             "Alta de personal, con familiar en la empresa"
-        } else if (item.contcompsol == 1) {
+        } else if (item.nuevo == 1 && item.contcompsol == 1) {
             "Alta de personal, viene de competencia"
+        } else if (item.nuevo == 1) {
+            "Alta de personal"
         } else {
             "Edición de información"
         }
