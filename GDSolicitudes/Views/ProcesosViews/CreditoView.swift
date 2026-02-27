@@ -476,7 +476,6 @@ struct CreditoView: View {
                     self.archivos = response.data
                     self.tieneArchivos = !response.data.isEmpty
                     print("Archivos encontrados:", response.data.count)
-//                    print("Nombre de archivo: ", response.data)
                 case .failure(let error):
                     print("Error:",error.localizedDescription)
                     self.tieneArchivos = false

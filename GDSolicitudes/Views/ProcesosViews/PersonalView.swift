@@ -61,7 +61,7 @@ struct PersonalView: View {
                                     .frame(width: 30, height: 30)
                             } else if tieneArchivos {
                                 Button(action: {
-                                    //mostrarArchivos = true
+                                    mostrarArchivos = true
                                 }) {
                                     Image(systemName: "paperclip")
                                         .foregroundColor(.white)
