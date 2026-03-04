@@ -171,7 +171,7 @@ struct RutaView: View {
                                                         .multilineTextAlignment(.center)
                                                         .lineLimit(2)
                                                 }
-                                                .frame(width: 300, height: 50)
+                                                .frame(width: 300, height: 30)
                                                 .background(Color("Blue1"))
                                                 .padding(.top, -6)
                                                 HStack(spacing: 0) {
