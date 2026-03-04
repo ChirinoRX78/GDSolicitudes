@@ -55,24 +55,23 @@ struct ReingresoView: View {
                         .padding(.leading, 20)
                     Spacer()
                     Group {
-                        if tieneArchivos {
-                            if cargandoArchivos {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                                    .frame(width: 30, height: 30)
-                            } else if tieneArchivos {
-                                Button(action: {
-                                    mostrarArchivos = true
-                                }) {
-                                    Image(systemName: "paperclip")
-                                        .foregroundColor(.white)
-                                        .padding(.leading, 30)
-                                        .font(.system(size: 20, weight: .bold))
-                                }
+                        if cargandoArchivos {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .frame(width: 30, height: 30)
+                                .padding(.leading, 30)
+                        }
+                        else if tieneArchivos {
+                            Button(action: {
+                                mostrarArchivos = true
+                            }) {
+                                Image(systemName: "paperclip")
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 30)
+                                    .font(.system(size: 20, weight: .bold))
                             }
                         }
                     }
-                    .frame(width: 40, height: 40)
                     Spacer()
                         .frame(width: 40)
                 }
