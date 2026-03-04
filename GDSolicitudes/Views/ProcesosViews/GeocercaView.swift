@@ -229,21 +229,37 @@ struct GeocercaView: View {
                                                 }
                                                 .frame(width: 300, height: 50)
                                                 .background(Color("Blue1"))
-                                                HStack {
-                                                    Text(singeoperm)
-                                                        .font(.system(size: 15, weight: .bold))
-                                                        .foregroundColor(.white)
-                                                    Spacer()
-                                                        .frame(width: 30)
-                                                    Text(singeotemp)
-                                                        .font(.system(size: 15, weight: .bold))
-                                                        .foregroundColor(.white)
+                                                HStack(spacing: 0) {
+                                                    if item.singeodefsol == 1 {
+                                                        Text(singeoperm)
+                                                            .font(.system(size: 15, weight: .bold))
+                                                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                            .foregroundColor(.white)
+                                                            .background(Color("Green1"))
+                                                            .multilineTextAlignment(.center)
+                                                    } else {
+                                                        Text(singeoperm)
+                                                            .font(.system(size: 15, weight: .bold))
+                                                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                            .foregroundColor(.white)
+                                                            .multilineTextAlignment(.center)
+                                                    }
+                                                    if item.singeotempsol == 1 {
+                                                        Text(singeotemp)
+                                                            .font(.system(size: 15, weight: .bold))
+                                                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                            .foregroundColor(.white)
+                                                            .background(Color("Green1"))
+                                                            .multilineTextAlignment(.center)
+                                                    } else {
+                                                        Text(singeotemp)
+                                                            .font(.system(size: 15, weight: .bold))
+                                                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                            .foregroundColor(.white)
+                                                            .multilineTextAlignment(.center)
+                                                    }
                                                 }
-                                                .multilineTextAlignment(.center)
                                                 .frame(width: 300, height: 50)
-                                                .background(Color("Green1"))
-                                                .padding(.bottom, -7)
-                                                .padding(.top, -6)
                                                 Text("Rango de fechas")
                                                     .font(.system(size: 15, weight: .bold))
                                                     .foregroundColor(Color.white)
