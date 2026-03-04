@@ -55,12 +55,14 @@ struct PersonalView: View {
                         .padding(.leading, 20)
                     Spacer()
                     Group {
+                        // Si está cargando, mostramos la animación de carga sin importar 'tieneArchivos'
                         if cargandoArchivos {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                 .frame(width: 30, height: 30)
                                 .padding(.leading, 30)
                         }
+                        // Si NO está cargando, pero sabemos que SÍ hay archivos, mostramos el clip
                         else if tieneArchivos {
                             Button(action: {
                                 mostrarArchivos = true
