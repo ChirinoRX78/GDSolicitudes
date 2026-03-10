@@ -597,4 +597,277 @@ class ClienteAPI {
             }
         }.resume()
     }
+    //MARK: Solicitudes autorizadas
+    static func obtenerSolicitudesAutorizadas(
+        empresa: Int,
+        proceso: Int,
+        cliente: Int,
+        completion: @escaping (Result<RespuestaSolAutorizadas, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosSolicitudesAutorizadas"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "empresa", value: String(empresa)),
+            URLQueryItem(name: "proceso", value: String(proceso)),
+            URLQueryItem(name: "cliente", value: String(cliente))
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaSolAutorizadas.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando solicitudes autorizadas:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    //MARK: Facturas vencidas
+    static func obtenerFacturasVencidas(
+        empresa: Int,
+        solicitud: Int,
+        cliente: Int,
+        completion: @escaping (Result<RespuestaFacturas, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosFacturasVencidas"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "empresa", value: String(empresa)),
+            URLQueryItem(name: "solicitud", value: String(solicitud)),
+            URLQueryItem(name: "cliente", value: String(cliente))
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaFacturas.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando facturas vencidas:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    //MARK: Contratos de clientes
+    static func obtenerContratoCliente(
+        empresa: Int,
+        cliente: Int,
+        completion: @escaping (Result<RespuestaContratos, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosContratoCliente"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "empresa", value: String(empresa)),
+            URLQueryItem(name: "cliente", value: String(cliente))
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaContratos.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando contratos de clientes:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    //MARK: Contratos de clientes
+    static func obtenerDescuentoCliente(
+        empresa: Int,
+        cliente: Int,
+        completion: @escaping (Result<RespuestaDescuentos, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosDescuentoCliente"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "empresa", value: String(empresa)),
+            URLQueryItem(name: "cliente", value: String(cliente))
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaDescuentos.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando descuentos de clientes:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    //MARK: Consumos de ruta
+    static func obtenerRutaConsumo(
+        solicitud: Int,
+        completion: @escaping (Result<RespuestaArticulo, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosRutaConsumo"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "solicitud", value: String(solicitud)),
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaArticulo.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando descuentos de clientes:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    //MARK: Roles de personal
+    static func obtenerPersonalRol(
+        solicitud: Int,
+        completion: @escaping (Result<RespuestaRoles, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosPersonalRol"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "solicitud", value: String(solicitud)),
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaRoles.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando artículo de rutas:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    //MARK: Contratos equipo
+    static func obtenerContratoEquipo(
+        solicitud: Int,
+        empresa: Int,
+        completion: @escaping (Result<RespuestaEquipos, Error>) -> Void
+    ) {
+        var components = URLComponents(
+            string: "https://www.ti.intranetgd.com.mx/getInfo/datosContratoEquipo"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "solicitud", value: String(solicitud)),
+            URLQueryItem(name: "empresa", value: String(empresa))
+        ]
+        guard let url = components?.url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(NSError(domain: "sinData", code: 0)))
+                return
+            }
+            // DEBUG
+//            let raw = String(data: data, encoding: .utf8) ?? "SIN TEXTO"
+//            print("JSON Bajas RAW:\n\(raw)")
+            do {
+                let decoded = try JSONDecoder().decode(RespuestaEquipos.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decoded))
+                }
+            } catch {
+                print("❌ Error decodificando contratos de equipos:", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
 }

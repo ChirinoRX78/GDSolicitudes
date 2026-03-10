@@ -17,7 +17,7 @@ struct CreditoView: View {
     //Archivos
     @State private var archivos: [Archivo] = []
     @State private var tieneArchivos = false
-    @State private var cargandoArchivos = true
+    @State private var cargandoArchivos = false
     @State private var mostrarArchivos = false
     @State private var mostrandoLoader = false
     @State private var mostrarAlerta = false

@@ -28,6 +28,8 @@ struct DesbloqueoView: View {
     @State private var procesando = false
     @State private var accionPendiente: Accion? = nil
     @State private var urlPendiente: URL? = nil
+    //Detalles adicionales
+    @State private var facturasVencidas: [Facturas] = []
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -310,6 +312,18 @@ struct DesbloqueoView: View {
                                             .font(.system(size: 15))
                                             .foregroundColor(.black)
                                             .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            if !facturasVencidas.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Facturas con saldo vencido")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
                                         }
                                     }
                                     .padding(.horizontal)
@@ -390,6 +404,13 @@ struct DesbloqueoView: View {
             case .success(let arr):
                 self.datos = arr.data
                 cargarArchivos()
+                if let item = arr.data.first {
+                    let empresa = item.emp
+                    let cliente = item.cliente
+                    let proceso = item.procesoid
+                    let solicitud = item.solicitud
+                    cargarFacturasVencidas(empresa: empresa, solicitud: solicitud, cliente: cliente)
+                }
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
@@ -409,6 +430,16 @@ struct DesbloqueoView: View {
                     print("Error:",error.localizedDescription)
                     self.tieneArchivos = false
                 }
+            }
+        }
+    }
+    private func cargarFacturasVencidas(empresa: Int, solicitud: Int, cliente: Int) {
+        ClienteAPI.obtenerFacturasVencidas(empresa: empresa, solicitud: solicitud, cliente: cliente) { result in
+            switch result {
+            case .success(let response):
+                self.facturasVencidas = response.data
+            case .failure(let error):
+                print("Error facturas vencidas:", error)
             }
         }
     }
