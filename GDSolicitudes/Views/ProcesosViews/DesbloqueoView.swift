@@ -30,6 +30,9 @@ struct DesbloqueoView: View {
     @State private var urlPendiente: URL? = nil
     //Detalles adicionales
     @State private var facturasVencidas: [Facturas] = []
+    @State private var solicitudesAutorizadas: [SolicitudesAutorizadas] = []
+    @State private var contratosCliente: [Contratos] = []
+    @State private var descuentosCliente: [Descuentos] = []
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -324,6 +327,42 @@ struct DesbloqueoView: View {
                                                 .foregroundColor(.black)
                                                 .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
                                             }
+                                            if !solicitudesAutorizadas.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Solicitudes autorizadas")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
+                                            if !contratosCliente.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Contratos del cliente")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
+                                            if !descuentosCliente.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Descuentos del cliente")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
                                         }
                                     }
                                     .padding(.horizontal)
@@ -410,6 +449,9 @@ struct DesbloqueoView: View {
                     let proceso = item.procesoid
                     let solicitud = item.solicitud
                     cargarFacturasVencidas(empresa: empresa, solicitud: solicitud, cliente: cliente)
+                    cargarSolicitudesAutorizadas(empresa: empresa, proceso: proceso, cliente: cliente)
+                    cargarContratosCliente(empresa: empresa, cliente: cliente)
+                    cargarDescuentosCliente(empresa: empresa, cliente: cliente)
                 }
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
@@ -433,6 +475,7 @@ struct DesbloqueoView: View {
             }
         }
     }
+    //MARK: Carga de datos extra
     private func cargarFacturasVencidas(empresa: Int, solicitud: Int, cliente: Int) {
         ClienteAPI.obtenerFacturasVencidas(empresa: empresa, solicitud: solicitud, cliente: cliente) { result in
             switch result {
@@ -440,6 +483,36 @@ struct DesbloqueoView: View {
                 self.facturasVencidas = response.data
             case .failure(let error):
                 print("Error facturas vencidas:", error)
+            }
+        }
+    }
+    private func cargarSolicitudesAutorizadas(empresa: Int, proceso: Int, cliente: Int) {
+        ClienteAPI.obtenerSolicitudesAutorizadas(empresa: empresa, proceso: proceso, cliente: cliente) { result in 
+            switch result {
+            case .success(let response):
+                self.solicitudesAutorizadas = response.data
+            case .failure(let error):
+                print("Error solicitudes autorizadas:", error)
+            }
+        }
+    }
+    private func cargarContratosCliente(empresa: Int, cliente: Int) {
+        ClienteAPI.obtenerContratoCliente(empresa: empresa, cliente: clietne) { result in 
+            switch result {
+            case .success(let response):
+                self.contratosCliente = response.data
+            case .failure(let error):
+                print("Error contratos cliente:", error)
+            }
+        }
+    }
+    private func cargarDescuentosCliente(empresa: Int, cliente: Int) {
+        ClienteAPI.obtenerDescuentoCliente(empresa: empresa, cliente: clietne) { result in 
+            switch result {
+            case .success(let response):
+                self.descuentosCliente = response.data
+            case .failure(let error):
+                print("Error descuentos cliente:", error)
             }
         }
     }
