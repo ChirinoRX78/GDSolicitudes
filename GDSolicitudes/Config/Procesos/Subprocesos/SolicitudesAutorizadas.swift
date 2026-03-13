@@ -16,6 +16,7 @@ struct SolicitudesAutorizadas: Codable, Identifiable {
     let nomcliente: String
     let contrato: Int
     let nomcontrato: String
+    //Desbloqueo
     let fecini: FechaAPI
     let fecfin: FechaAPI
     let saldo: String
@@ -30,6 +31,7 @@ struct SolicitudesAutorizadas: Codable, Identifiable {
         case nomcliente = "NombreCliente"
         case contrato = "ContratoID"
         case nomcontrato = "NombreContrato"
+        //Desbloqueo
         case fecini = "FechaInicialDesbloqueoSolicitado"
         case fecfin = "FechaFinalDesbloqueoSolicitado"
         case saldo = "SaldoTotal"

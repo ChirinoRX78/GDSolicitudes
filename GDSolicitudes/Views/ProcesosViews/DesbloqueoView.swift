@@ -464,6 +464,105 @@ struct DesbloqueoView: View {
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Solicitud")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Cliente")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Contrato")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Fecha inicial desbloqueo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Fecha final desbloqueo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo vencido")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Último pago")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Solicitante")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(solicitudesAutorizadas) { solaut in
+                                                                let fecha = "\(solaut.fechaaut.date.formatearFecha())"
+                                                                let solicitud = "\(solaut.solicitud) del \(fecha)"
+                                                                let cliente = "\(solaut.cliente) - \(solaut.nomcliente)"
+                                                                let contrato = "\(solaut.contrato) - \(solaut.nomcontrato)"
+                                                                let fecini = "\(solaut.fecini.date.formatearFecha())"
+                                                                let fecfin = "\(solaut.fecfin.date.formatearFecha())"
+                                                                let fecpago = "\(solaut.ultpagofecha.date.formatearFecha())"
+                                                                let ultpago = "Abonó $\(solaut.ultpago) el \(fecpago)"
+                                                                HStack(spacing: 0){
+                                                                    Text(solicitud)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 220, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(cliente)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 220, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(contrato)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(fecini)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(fecfin)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(solaut.saldo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(solaut.saldoven)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(ultpago)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(solaut.solicitante)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 .padding(.top, 5)
                                                 .font(.system(size: 15))
@@ -476,6 +575,64 @@ struct DesbloqueoView: View {
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Contrato")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo venta")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo contrato")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo precio")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Precio")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(contratosCliente) { con in
+                                                                let contrato = "\(con.contrato) - \(con.nombre)"
+                                                                let tipo = "\(con.tipo) - \(con.tipodesc)"
+                                                                let tipopre = "\(con.tipopre) - \(con.tipopredesc)"
+                                                                HStack(spacing: 0){
+                                                                    Text(contrato)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 220, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(con.venta)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(tipo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(tipopre)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(con.precio)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 .padding(.top, 5)
                                                 .font(.system(size: 15))
@@ -488,6 +645,54 @@ struct DesbloqueoView: View {
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Artículo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Descuento")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Autómatico")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(descuentosCliente) { desc in
+                                                                let articulo = "\(desc.articulo) - \(desc.desc)"
+                                                                let automatico = if desc.auto == 1 { "True" } else { "False" }
+                                                                HStack(spacing: 0){
+                                                                    Text(articulo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(desc.desc)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(desc.tipo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(automatico)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 .padding(.top, 5)
                                                 .font(.system(size: 15))
