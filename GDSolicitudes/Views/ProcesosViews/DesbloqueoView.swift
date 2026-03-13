@@ -316,11 +316,142 @@ struct DesbloqueoView: View {
                                             .foregroundColor(.black)
                                             .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
                                             if !facturasVencidas.isEmpty {
-                                                VStack(alignment: .leading, spacing: 6) {
+                                                VStack(alignment: .leading, spacing: 0) {
                                                     Text("Facturas con saldo vencido")
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Factura")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Fecha")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Fecha vencimiento")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Cargo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Abono")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo vencido")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s7D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s15D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s30D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s60D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s1AÑO")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("sM1AÑO")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(facturasVencidas) { factura in
+                                                                let fact = "\(factura.concepto)\(factura.folio)"
+                                                                let fecha = "\(factura.fecha.date.formatearFecha())"
+                                                                let fechaven = "\(factura.fechaven.date.formatearFechaHora())"
+                                                                HStack(spacing: 0){
+                                                                    Text(verbatim: fact)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(fecha)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(fechaven)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.cargo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.abono)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.saldo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.vencido)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s7d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s15d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s30d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s60d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.sano)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.smano)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 .padding(.top, 5)
                                                 .font(.system(size: 15))
@@ -497,7 +628,7 @@ struct DesbloqueoView: View {
         }
     }
     private func cargarContratosCliente(empresa: Int, cliente: Int) {
-        ClienteAPI.obtenerContratoCliente(empresa: empresa, cliente: clietne) { result in 
+        ClienteAPI.obtenerContratoCliente(empresa: empresa, cliente: cliente) { result in
             switch result {
             case .success(let response):
                 self.contratosCliente = response.data
@@ -507,7 +638,7 @@ struct DesbloqueoView: View {
         }
     }
     private func cargarDescuentosCliente(empresa: Int, cliente: Int) {
-        ClienteAPI.obtenerDescuentoCliente(empresa: empresa, cliente: clietne) { result in 
+        ClienteAPI.obtenerDescuentoCliente(empresa: empresa, cliente: cliente) { result in 
             switch result {
             case .success(let response):
                 self.descuentosCliente = response.data

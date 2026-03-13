@@ -19,7 +19,7 @@ struct SolicitudesAutorizadas: Codable, Identifiable {
     let fecini: FechaAPI
     let fecfin: FechaAPI
     let saldo: String
-    let saldoven: FechaAPI
+    let saldoven: String
     let ultpago: String
     let ultpagofecha: FechaAPI
     let solicitante: String
