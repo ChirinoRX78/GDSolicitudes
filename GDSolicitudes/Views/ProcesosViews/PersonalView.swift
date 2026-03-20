@@ -28,6 +28,9 @@ struct PersonalView: View {
     @State private var procesando = false
     @State private var accionPendiente: Accion? = nil
     @State private var urlPendiente: URL? = nil
+    
+    //Detalles adicionales
+    @State private var rolesPersonal: [Roles] = []
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -194,6 +197,58 @@ struct PersonalView: View {
                                             .font(.system(size: 15))
                                             .foregroundColor(.black)
                                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                            if !rolesPersonal.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Roles aplicados al colaborador")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Solicitud")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Función")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Activo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(rolesPersonal) { rol in
+                                                                let funcion = "\(rol.tipo) - \(rol.funcion)"
+                                                                let activo = rol.asignar == 1 ? "Si" : "No"
+                                                                HStack(spacing: 0){
+                                                                    Text(verbatim: "\(rol.solicitud)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(funcion)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(activo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
                                         }
                                     }
                                     .padding(.horizontal)
@@ -274,6 +329,10 @@ struct PersonalView: View {
             case .success(let arr):
                 self.datos = arr.data
                 cargarArchivos()
+                if let item = arr.data.first {
+                    let solicitud = item.solicitud
+                    cargarPersonalRol(solicitud: solicitud)
+                }
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
@@ -294,6 +353,18 @@ struct PersonalView: View {
                     print("Error:",error.localizedDescription)
                     self.tieneArchivos = false
                 }
+            }
+        }
+    }
+    //MARK: Carga de datos extra
+    private func cargarPersonalRol(solicitud: Int) {
+        ClienteAPI.obtenerPersonalRol(solicitud: solicitud) { result in
+            switch result {
+            case .success(let response):
+                let filtro = response.data.filter {$0.asignar == 1}
+                self.rolesPersonal = filtro
+            case .failure(let error):
+                print("Error rol de personal:", error)
             }
         }
     }
@@ -364,12 +435,12 @@ struct PersonalView: View {
         let salto = "\n\n"
         var otroscampos = "Categoría del puesto [\(item.catpers) - \(item.catpersdesc)]" + salto
         if item.contcompact != item.contcompsol {
-            let contcompact = if(item.contcompact == 1) { "SI" } else {"NO"}
-            let contcompsol = if(item.contcompsol == 1) { "SI" } else {"NO"}
-            otroscampos += "Contratación competencia actual: [\(contcompact)] Solicitado: [\(contcompsol)]" + salto
+            let contcompactp = item.contcompact == 1 ? "SI" : "NO"
+            let contcompsolp = item.contcompsol == 1 ? "SI" : "NO"
+            otroscampos += "Contratación competencia actual: [\(contcompactp)] Solicitado: [\(contcompsolp)]" + salto
         }
-        let famact = if(item.contcompact == 1) { "SI" } else {"NO"}
-        let famsol = if(item.contcompsol == 1) { "SI" } else {"NO"}
+        let famact = item.contcompact == 1 ? "SI" : "NO"
+        let famsol = item.contcompsol == 1 ? "SI" : "NO"
         otroscampos += "Familiares en la empresa actual: [\(famact)] Solicitado: [\(famsol)]" + salto
         if item.soltemp == 1 {
             let fechatempini = item.fechatempini?.date.formatearFecha()

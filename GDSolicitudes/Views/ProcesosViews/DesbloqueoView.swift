@@ -464,6 +464,7 @@ struct DesbloqueoView: View {
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
                                                     ScrollView(.horizontal) {
                                                         VStack (spacing: 0) {
                                                             HStack(spacing: 0){
@@ -575,6 +576,7 @@ struct DesbloqueoView: View {
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
                                                     ScrollView(.horizontal) {
                                                         VStack (spacing: 0) {
                                                             HStack(spacing: 0){
@@ -645,6 +647,7 @@ struct DesbloqueoView: View {
                                                         .bold()
                                                         .font(.system(size: 16))
                                                         .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
                                                     ScrollView(.horizontal) {
                                                         VStack (spacing: 0) {
                                                             HStack(spacing: 0){
