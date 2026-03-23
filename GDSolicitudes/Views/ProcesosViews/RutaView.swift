@@ -28,6 +28,8 @@ struct RutaView: View {
     @State private var procesando = false
     @State private var accionPendiente: Accion? = nil
     @State private var urlPendiente: URL? = nil
+    //Detalles adicionales
+    @State private var rutasArticulo: [Articulos] = []
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -292,6 +294,66 @@ struct RutaView: View {
                                             .font(.system(size: 15))
                                             .foregroundColor(.black)
                                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                            if !rutasArticulo.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Artículos en ruta de distribución")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Solicitud")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Cns")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Artículo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Cantidad entregada")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(rutasArticulo) { art in
+                                                                let articulo = "\(eq.articulo) - \(eq.nomarticulo)"
+                                                                HStack(spacing: 0){
+                                                                    Text(verbatim: "\(art.solicitud)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(art.cns)")
+                                                                        .foregrondColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(articulo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(art.cant)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
                                         }
                                     }
                                     .padding(.horizontal)
@@ -372,6 +434,10 @@ struct RutaView: View {
             case .success(let arr):
                 self.datos = arr.data
                 cargarArchivos()
+                if let item = arr.data.first {
+                    let solicitud = item.solicitud
+                    cargarArticulosRuta(solicitud: solicitud)
+                }
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
@@ -391,6 +457,17 @@ struct RutaView: View {
                     print("Error:",error.localizedDescription)
                     self.tieneArchivos = false
                 }
+            }
+        }
+    }
+    //MARK: Carga de datos extra
+    private func cargarArticulosRuta(solicitud: Int) {
+        ClienteAPI.obtenerRutaConsumo(solicitud: solicitud) { result in
+            switch result {
+            case .success(let response):
+                self.contratosCliente = response.data
+            case .failure(let error):
+                print("Error artículos ruta:", error)
             }
         }
     }

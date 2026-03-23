@@ -28,6 +28,11 @@ struct GeocercaView: View {
     @State private var procesando = false
     @State private var accionPendiente: Accion? = nil
     @State private var urlPendiente: URL? = nil
+    //Detalles adicionales
+    @State private var facturasVencidas: [Facturas] = []
+    @State private var solicitudesAutorizadas: [SolicitudesAutorizadas] = []
+    @State private var contratosCliente: [Contratos] = []
+    @State private var descuentosCliente: [Descuentos] = []
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -395,6 +400,456 @@ struct GeocercaView: View {
                                             .font(.system(size: 15))
                                             .foregroundColor(.black)
                                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                            if !facturasVencidas.isEmpty {
+                                                VStack(alignment: .leading, spacing: 0) {
+                                                    Text("Facturas con saldo vencido")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Factura")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Fecha")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Fecha vencimiento")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Cargo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Abono")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo vencido")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s7D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s15D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s30D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s60D")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("s1AÑO")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("sM1AÑO")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(facturasVencidas) { factura in
+                                                                let fact = "\(factura.concepto)\(factura.folio)"
+                                                                let fecha = "\(factura.fecha.date.formatearFecha())"
+                                                                let fechaven = "\(factura.fechaven.date.formatearFechaHora())"
+                                                                HStack(spacing: 0){
+                                                                    Text(verbatim: fact)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(fecha)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(fechaven)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.cargo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.abono)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.saldo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.vencido)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s7d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s15d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s30d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.s60d)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.sano)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(factura.smano)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
+                                            if !solicitudesAutorizadas.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Solicitudes autorizadas")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Solicitud")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Cliente")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Contrato")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Geocerca actual")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Geocerca solicitada")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Sin geocerca permanente")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Sin geocerca temporal")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Rango de fechas")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Bloquear con geocerca")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Saldo vencido")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Último pago")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Solicitante")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 200, height: 60)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(solicitudesAutorizadas) { solaut in
+                                                                let fecha = "\(solaut.fechaaut.date.formatearFecha())"
+                                                                let solicitud = "\(solaut.solicitud) del \(fecha)"
+                                                                let cliente = "\(solaut.cliente) - \(solaut.nomcliente)"
+                                                                let contrato = "\(solaut.contrato) - \(solaut.nomcontrato)"
+                                                                let geoact = """
+                                                                Latitud actual: \(solaut.latact)
+                                                                Longitud actual: \(solaut.lonact)
+                                                                Radio actual: \(solaut.radact)
+                                                                """
+                                                                let geosol = """
+                                                                Latitud solicitado: \(solaut.latsol)
+                                                                Longitud solicitado: \(solaut.lonsol)
+                                                                Radio solicitado: \(solaut.radsol)
+                                                                """
+                                                                let geopermact = if (solaut.geopermact == 1) {"SI"} else {"NO"}
+                                                                let geopermsol = if (solaut.geopermsol == 1) {"SI"} else {"NO"}
+                                                                let singeoperm = """
+                                                                Actual: \(geopermact)
+                                                                Solicitado: \(geopermsol)
+                                                                """
+                                                                let geotempact = if (solaut.geotempact == 1) {"SI"} else {"NO"}
+                                                                let geotempsol = if (solaut.geotempsol == 1) {"SI"} else {"NO"}
+                                                                let singeotemp = """
+                                                                Actual: \(geotempact)
+                                                                Solicitado: \(geotempsol)
+                                                                """
+                                                                let fechadesde = solaut.geotempfecdesde.date.formatearFechaHora()
+                                                                let fechahasta = solaut.geotempfechasta.date.formatearFechaHora()
+                                                                let rango = """
+                                                                Desde: \(fechadesde)
+                                                                Hasta: \(fechahasta)
+                                                                """
+                                                                let bloqueo = if (item.geobloq == 1) {"SI"} else {"NO"}
+                                                                let fecpago = "\(solaut.ultpagofecha.date.formatearFecha())"
+                                                                let ultpago = "Abonó $\(solaut.ultpago) el \(fecpago)"
+                                                                HStack(spacing: 0){
+                                                                    Text(solicitud)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 220, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(cliente)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 220, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(contrato)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(geoact)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(geosol)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(singeoperm)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(singeotemp)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(rango)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(bloqueo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(solaut.saldo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(solaut.saldoven)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(ultpago)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(solaut.solicitante)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 200, height: 60)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
+                                            if !contratosCliente.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Contratos del cliente")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Contrato")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 220, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo venta")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo contrato")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo precio")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Precio")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(contratosCliente) { con in
+                                                                let contrato = "\(con.contrato) - \(con.nombre)"
+                                                                let tipo = "\(con.tipo) - \(con.tipodesc)"
+                                                                let tipopre = "\(con.tipopre) - \(con.tipopredesc)"
+                                                                HStack(spacing: 0){
+                                                                    Text(contrato)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 220, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(con.venta)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(tipo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(tipopre)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(con.precio)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
+                                            if !descuentosCliente.isEmpty {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text("Descuentos del cliente")
+                                                        .bold()
+                                                        .font(.system(size: 16))
+                                                        .frame(maxWidth: .infinity, alignment: .center)
+                                                        .padding(.bottom, 10)
+                                                    ScrollView(.horizontal) {
+                                                        VStack (spacing: 0) {
+                                                            HStack(spacing: 0){
+                                                                Text("Artículo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 120, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Descuento")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Tipo")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 80, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                                Text("Autómatico")
+                                                                    .foregroundColor(.white)
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .frame(width: 100, height: 30)
+                                                                    .background(Color("Blue1"))
+                                                            }
+                                                            ForEach(descuentosCliente) { desc in
+                                                                let articulo = "\(desc.articulo) - \(desc.desc)"
+                                                                let automatico = if desc.auto == 1 { "True" } else { "False" }
+                                                                HStack(spacing: 0){
+                                                                    Text(articulo)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 120, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("$\(desc.desc)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text("\(desc.tipo)")
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 80, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                    Text(automatico)
+                                                                        .foregroundColor(.black)
+                                                                        .frame(width: 100, height: 30)
+                                                                        .background(Color("WhiteBG"))
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                .padding(.top, 5)
+                                                .font(.system(size: 15))
+                                                .foregroundColor(.black)
+                                                .frame(maxWidth: 300, maxHeight: .infinity, alignment: .leading)
+                                            }
                                         }
                                     }
                                     .padding(.horizontal)
@@ -475,6 +930,16 @@ struct GeocercaView: View {
             case .success(let arr):
                 self.datos = arr.data
                 cargarArchivos()
+                if let item = arr.data.first {
+                    let empresa = item.emp
+                    let cliente = item.cliente
+                    let proceso = item.procesoid
+                    let solicitud = item.solicitud
+                    cargarFacturasVencidas(empresa: empresa, solicitud: solicitud, cliente: cliente)
+                    cargarSolicitudesAutorizadas(empresa: empresa, proceso: proceso, cliente: cliente)
+                    cargarContratosCliente(empresa: empresa, cliente: cliente)
+                    cargarDescuentosCliente(empresa: empresa, cliente: cliente)
+                }
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
             }
@@ -494,6 +959,47 @@ struct GeocercaView: View {
                     print("Error:",error.localizedDescription)
                     self.tieneArchivos = false
                 }
+            }
+        }
+    }
+    //MARK: Carga de datos extra
+    private func cargarFacturasVencidas(empresa: Int, solicitud: Int, cliente: Int) {
+        ClienteAPI.obtenerFacturasVencidas(empresa: empresa, solicitud: solicitud, cliente: cliente) { result in
+            switch result {
+            case .success(let response):
+                self.facturasVencidas = response.data
+            case .failure(let error):
+                print("Error facturas vencidas:", error)
+            }
+        }
+    }
+    private func cargarSolicitudesAutorizadas(empresa: Int, proceso: Int, cliente: Int) {
+        ClienteAPI.obtenerSolicitudesAutorizadas(empresa: empresa, proceso: proceso, cliente: cliente) { result in 
+            switch result {
+            case .success(let response):
+                self.solicitudesAutorizadas = response.data
+            case .failure(let error):
+                print("Error solicitudes autorizadas:", error)
+            }
+        }
+    }
+    private func cargarContratosCliente(empresa: Int, cliente: Int) {
+        ClienteAPI.obtenerContratoCliente(empresa: empresa, cliente: cliente) { result in
+            switch result {
+            case .success(let response):
+                self.contratosCliente = response.data
+            case .failure(let error):
+                print("Error contratos cliente:", error)
+            }
+        }
+    }
+    private func cargarDescuentosCliente(empresa: Int, cliente: Int) {
+        ClienteAPI.obtenerDescuentoCliente(empresa: empresa, cliente: cliente) { result in 
+            switch result {
+            case .success(let response):
+                self.descuentosCliente = response.data
+            case .failure(let error):
+                print("Error descuentos cliente:", error)
             }
         }
     }

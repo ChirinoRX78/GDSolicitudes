@@ -833,16 +833,16 @@ class ClienteAPI {
     }
     //MARK: Contratos equipo
     static func obtenerContratoEquipo(
-        solicitud: Int,
         empresa: Int,
+        solicitud: Int,
         completion: @escaping (Result<RespuestaEquipos, Error>) -> Void
     ) {
         var components = URLComponents(
             string: "https://www.ti.intranetgd.com.mx/getInfo/datosContratoEquipo"
         )
         components?.queryItems = [
-            URLQueryItem(name: "solicitud", value: String(solicitud)),
-            URLQueryItem(name: "empresa", value: String(empresa))
+            URLQueryItem(name: "empresa", value: String(empresa)),
+            URLQueryItem(name: "solicitud", value: String(solicitud))
         ]
         guard let url = components?.url else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
