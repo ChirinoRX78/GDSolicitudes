@@ -673,7 +673,7 @@ struct ContratoView: View {
                                                             }
                                                             ForEach(descuentosCliente) { desc in
                                                                 let articulo = "\(desc.articulo) - \(desc.desc)"
-                                                                let automatico = if desc.auto == 1 { "True" } else { "False" }
+                                                                let automatico = if desc.auto == 1 ? "True" : "False"
                                                                 HStack(spacing: 0){
                                                                     Text(articulo)
                                                                         .foregroundColor(.black)
@@ -747,7 +747,7 @@ struct ContratoView: View {
                                                                         .frame(width: 200, height: 30)
                                                                         .background(Color("WhiteBG"))
                                                                     Text("\(eq.serie)")
-                                                                        .foregrondColor(.black)
+                                                                        .foregroundColor(.black)
                                                                         .frame(width: 80, height: 30)
                                                                         .background(Color("WhiteBG"))
                                                                     Text("\(eq.cap)")

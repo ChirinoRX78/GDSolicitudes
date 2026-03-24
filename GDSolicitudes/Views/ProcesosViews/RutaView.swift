@@ -333,7 +333,7 @@ struct RutaView: View {
                                                                         .frame(width: 80, height: 30)
                                                                         .background(Color("WhiteBG"))
                                                                     Text("\(art.cns)")
-                                                                        .foregrondColor(.black)
+                                                                        .foregroundColor(.black)
                                                                         .frame(width: 80, height: 30)
                                                                         .background(Color("WhiteBG"))
                                                                     Text(articulo)
