@@ -861,7 +861,7 @@ struct ContratoView: View {
                     cargarSolicitudesAutorizadas(empresa: empresa, proceso: proceso, cliente: cliente)
                     cargarContratosCliente(empresa: empresa, cliente: cliente)
                     cargarDescuentosCliente(empresa: empresa, cliente: cliente)
-                    cargarContratosEquipo(solicitud: solicitud, empresa: empresa)
+                    cargarContratosEquipo(empresa: empresa, solicitud: solicitud)
                 }
             case .failure(let error):
                 self.errorMsg = "Error: \(error.localizedDescription)"
@@ -926,8 +926,8 @@ struct ContratoView: View {
             }
         }
     }
-    private func cargarContratosEquipo(empresa: Int, cliente: Int) {
-        ClienteAPI.obtenerContratoEquipo(solicitud: solicitud, empresa: empresa) { result in 
+    private func cargarContratosEquipo(empresa: Int, solicitud: Int) {
+        ClienteAPI.obtenerContratoEquipo(empresa: empresa, solicitud: solicitud) { result in
             switch result {
             case .success(let response):
                 self.contratosEquipo = response.data

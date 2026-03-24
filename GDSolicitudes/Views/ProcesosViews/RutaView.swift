@@ -326,7 +326,7 @@ struct RutaView: View {
                                                                     .background(Color("Blue1"))
                                                             }
                                                             ForEach(rutasArticulo) { art in
-                                                                let articulo = "\(eq.articulo) - \(eq.nomarticulo)"
+                                                                let articulo = "\(art.articulo) - \(art.nomarticulo)"
                                                                 HStack(spacing: 0){
                                                                     Text(verbatim: "\(art.solicitud)")
                                                                         .foregroundColor(.black)
@@ -465,7 +465,7 @@ struct RutaView: View {
         ClienteAPI.obtenerRutaConsumo(solicitud: solicitud) { result in
             switch result {
             case .success(let response):
-                self.contratosCliente = response.data
+                self.rutasArticulo = response.data
             case .failure(let error):
                 print("Error artículos ruta:", error)
             }
